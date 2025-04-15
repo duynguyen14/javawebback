@@ -2,12 +2,21 @@ package com.example.back.Exception;
 
 import com.example.back.DTO.Response.APIResponse;
 import com.example.back.Enums.ErrorCodes;
+import com.example.back.responses.ResponseObject;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-@ControllerAdvice
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+@RestControllerAdvice // Chi dinh cho lop xu li ngoai le chung
+//@ControllerAdvice
 public class GlobalException {
+
     @ExceptionHandler(value = AppException.class)
     public ResponseEntity<APIResponse> handlerAppException(AppException appException){
         ErrorCodes errorCodes =appException.errorCodes;
@@ -16,4 +25,25 @@ public class GlobalException {
         apiResponse.setMessage(errorCodes.getMessage());
         return ResponseEntity.status(errorCodes.getStatus()).body(apiResponse);
     }
+    // moi cho
+    @ExceptionHandler(Exception.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ResponseEntity<ResponseObject> handleGeneralException(Exception exception) {
+        return ResponseEntity.internalServerError().body(
+                ResponseObject.builder()
+                        .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                        .message(exception.getMessage())
+                        .build()
+        );
+    }
+    @ExceptionHandler(DataNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ResponseEntity<?> handleResourceNotFoundException(DataNotFoundException exception) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ResponseObject.builder()
+                .status(HttpStatus.NOT_FOUND)
+                .message(exception.getMessage())
+                .build());
+    }
+
+
 }

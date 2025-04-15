@@ -1,23 +1,29 @@
 package com.example.back.Entity;
 
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@Setter
-@Builder
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
-@FieldDefaults(level = AccessLevel.PRIVATE)
+@Table(name = "SIZE")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Size {
     @Id
+    @Column(name = "SizeId")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer id;
-    String name;
+    private Integer sizeId;
 
+    @Column(name = "SizeName")
+    private String sizeName;
+
+    @ManyToMany(mappedBy = "sizes")
+    private Set<Product> products = new HashSet<>();
 }

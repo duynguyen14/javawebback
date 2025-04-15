@@ -4,17 +4,24 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@Setter
-@Builder
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
-@FieldDefaults(level = AccessLevel.PRIVATE)
+@Table(name = "CATALOG")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Catalog {
     @Id
+    @Column(name = "CatalogId")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "catalogId")
-    Integer id;
-    String name;
+    private Integer catalogId;
+
+    @Column(name = "Name")
+    private String name;
+
+    @OneToMany(mappedBy = "catalog", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Category> categories = new ArrayList<>();
 }
+

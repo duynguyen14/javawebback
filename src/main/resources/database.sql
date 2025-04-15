@@ -1,0 +1,122 @@
+CREATE TABLE USER (
+  id INT PRIMARY KEY,
+  Email NVARCHAR(200),
+  UserName NVARCHAR(200),
+  Password NVARCHAR(200),
+  Status NVARCHAR(200),
+  Gender NVARCHAR(50),
+  DOB DATETIME
+);
+
+CREATE TABLE ROLE (
+  RoleId INT PRIMARY KEY,
+  RoleName NVARCHAR(200),
+  Description NVARCHAR(200)
+);
+
+CREATE TABLE USER_ROLE (
+  id INT PRIMARY KEY,
+  RoleId INT,
+  FOREIGN KEY (RoleId) REFERENCES ROLE(RoleId)
+);
+
+CREATE TABLE CATALOG (
+  CatalogId INT PRIMARY KEY,
+  Name NVARCHAR(200)
+);
+
+CREATE TABLE CATEGORY (
+  CategoryId INT PRIMARY KEY,
+  Name NVARCHAR(200),
+  CatalogId INT,
+  FOREIGN KEY (CatalogId) REFERENCES CATALOG(CatalogId)
+);
+
+CREATE TABLE PRODUCT (
+  ProductId INT PRIMARY KEY,
+  Name NVARCHAR(200),
+  Price MONEY,
+  Quantity INT,
+  Description NVARCHAR(200),
+  CategoryId INT,
+  FOREIGN KEY (CategoryId) REFERENCES CATEGORY(CategoryId)
+);
+
+CREATE TABLE SIZE (
+  SizeId INT PRIMARY KEY,
+  SizeName NVARCHAR(20)
+);
+
+CREATE TABLE PRODUCT_SIZE (
+  ProductId INT,
+  SizeId INT,
+  PRIMARY KEY (ProductId, SizeId),
+  FOREIGN KEY (ProductId) REFERENCES PRODUCT(ProductId),
+  FOREIGN KEY (SizeId) REFERENCES SIZE(SizeId)
+);
+
+CREATE TABLE IMAGE (
+  ImageId INT PRIMARY KEY,
+  Image NVARCHAR(200),
+  Description NVARCHAR(200),
+  ProductId INT,
+  FOREIGN KEY (ProductId) REFERENCES PRODUCT(ProductId)
+);
+
+CREATE TABLE REVIEW (
+  ReviewId INT PRIMARY KEY,
+  Comment NVARCHAR(200),
+  Rating INT,
+  Time DATETIME,
+  ProductId INT,
+  Id INT,
+  FOREIGN KEY (ProductId) REFERENCES PRODUCT(ProductId),
+  FOREIGN KEY (Id) REFERENCES USER(id)
+);
+
+CREATE TABLE ADDRESS (
+  AddressId INT PRIMARY KEY,
+  City NVARCHAR(100),
+  Street NVARCHAR(200),
+  DetailedAddress NVARCHAR(200),
+  Name NVARCHAR(200),
+  PhoneNumber INT,
+  Id INT,
+  FOREIGN KEY (Id) REFERENCES USER(id)
+);
+
+CREATE TABLE BILL (
+  BillId INT PRIMARY KEY,
+  Time DATETIME,
+  Status NVARCHAR(50),
+  Id INT,
+  AddressId INT,
+  FOREIGN KEY (Id) REFERENCES USER(id),
+  FOREIGN KEY (AddressId) REFERENCES ADDRESS(AddressId)
+);
+
+CREATE TABLE BILLDETAIL (
+  BillId INT,
+  ProductId INT,
+  Quantity INT,
+  PRIMARY KEY (BillId, ProductId),
+  FOREIGN KEY (BillId) REFERENCES BILL(BillId),
+  FOREIGN KEY (ProductId) REFERENCES PRODUCT(ProductId)
+);
+
+CREATE TABLE SHOPPINGCART (
+  ShoppingCartId INT PRIMARY KEY,
+  Description NVARCHAR(200),
+  Id INT,
+  FOREIGN KEY (Id) REFERENCES USER(id)
+);
+
+CREATE TABLE SHOPPINGCARTDETAIL (
+  ShoppingCartId INT,
+  ProductId INT,
+  Quantity INT,
+  Total MONEY,
+  PRIMARY KEY (ShoppingCartId, ProductId),
+  FOREIGN KEY (ShoppingCartId) REFERENCES SHOPPINGCART(ShoppingCartId),
+  FOREIGN KEY (ProductId) REFERENCES PRODUCT(ProductId)
+);

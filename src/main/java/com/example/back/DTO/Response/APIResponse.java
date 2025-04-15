@@ -9,7 +9,6 @@ import lombok.experimental.FieldDefaults;
 @Getter
 @Setter
 @Builder
-@Entity
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class APIResponse<T> {
     int code=1000;
