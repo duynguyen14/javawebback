@@ -6,7 +6,6 @@ import lombok.experimental.FieldDefaults;
 import org.springframework.http.HttpStatus;
 
 @Getter
-@Entity
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public enum ErrorCodes {
 
@@ -20,8 +19,8 @@ public enum ErrorCodes {
         this.status = status;
     }
 
-    int code;
-    String message;
-    HttpStatus status;
+    private final int code;
+    private final String message;
+    private final HttpStatus status;
 
 }
