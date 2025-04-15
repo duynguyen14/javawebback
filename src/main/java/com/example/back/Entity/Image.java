@@ -4,18 +4,25 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@Setter
-@Builder
 @Entity
-@FieldDefaults(level = AccessLevel.PRIVATE)
+@Table(name = "IMAGE")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Image {
     @Id
+    @Column(name = "ImageId")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "imageId")
-    Integer id;
-    String image;
-    String description;
+    private Integer imageId;
+
+    @Column(name = "Image")
+    private String image;
+
+    @Column(name = "Description")
+    private String description;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ProductId")
+    private Product product;
 }
+

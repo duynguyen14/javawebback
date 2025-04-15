@@ -5,18 +5,26 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@Setter
-@Builder
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
-@FieldDefaults(level = AccessLevel.PRIVATE)
+@Table(name = "ROLE")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Role {
     @Id
+    @Column(name = "RoleId")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "roleId")
-    Integer id;
-    String roleName;
-    String description;
+    private Integer roleId;
+
+    @Column(name = "RoleName")
+    private String roleName;
+
+    @Column(name = "Description")
+    private String description;
+
+    @OneToMany(mappedBy = "role", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<UserRole> userRoles = new ArrayList<>();
 }

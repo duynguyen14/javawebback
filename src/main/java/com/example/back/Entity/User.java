@@ -1,31 +1,57 @@
 package com.example.back.Entity;
+import jakarta.persistence.*;
+import lombok.Data;
+import java.time.LocalDate;
+import java.util.*;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import lombok.*;
-import lombok.experimental.FieldDefaults;
-import org.springframework.boot.autoconfigure.web.WebProperties;
 
-import java.util.Date;
+import lombok.AllArgsConstructor;
+
+import lombok.NoArgsConstructor;
+
 
 @Entity
-@AllArgsConstructor
+@Table(name = "USER")
+@Data
 @NoArgsConstructor
-@Getter
-@Setter
-@Builder
-@FieldDefaults(level = AccessLevel.PRIVATE)
+@AllArgsConstructor
 public class User {
     @Id
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer id;
-    String email;
-    String userName;
-    String password;
-    boolean status;
-    String gender;
-    Date dob;
+    private Integer id;
 
+    @Column(name = "Email")
+    private String email;
+
+    @Column(name = "UserName")
+    private String userName;
+
+    @Column(name = "Password")
+    private String password;
+
+    @Column(name = "Status")
+    private String status;
+
+    @Column(name = "Gender")
+    private String gender;
+
+    @Column(name = "DOB")
+    private LocalDate dob;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Address> addresses = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Bill> bills = new ArrayList<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Review> reviews = new ArrayList<>();
+
+    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private ShoppingCart shoppingCart;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<UserRole> userRoles = new ArrayList<>();
 }
+

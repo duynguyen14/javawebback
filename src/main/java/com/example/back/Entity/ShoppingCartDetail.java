@@ -1,19 +1,34 @@
 package com.example.back.Entity;
 
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
+import jakarta.persistence.Table;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-@AllArgsConstructor
-@NoArgsConstructor
-@Getter
-@Setter
-@Builder
+import java.math.BigDecimal;
+
 @Entity
-@FieldDefaults(level = AccessLevel.PRIVATE)
+@Table(name = "SHOPPINGCARTDETAIL")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class ShoppingCartDetail {
-    Integer shoppingCartId;
-    Integer productId;
-    Integer quantity;
-    double total;
+    @EmbeddedId
+    private ShoppingCartDetailId id;
+
+    @Column(name = "Quantity")
+    private Integer quantity;
+
+    @Column(name = "Total")
+    private BigDecimal total;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @MapsId("shoppingCartId")
+    @JoinColumn(name = "ShoppingCartId")
+    private ShoppingCart shoppingCart;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @MapsId("productId")
+    @JoinColumn(name = "ProductId")
+    private Product product;
 }
