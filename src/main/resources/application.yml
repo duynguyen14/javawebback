@@ -9,9 +9,11 @@
 #    show-sql : true
 #    hibernate:
 #      ddl-auto: update
-
+api:
+  key: api/v1
 spring:
   port: 3080
+
   datasource:
     url: jdbc:mysql://localhost:3306/foxy_shop?useSSL=false&serverTimezone=UTC
     username: root
