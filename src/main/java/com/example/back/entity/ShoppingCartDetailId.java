@@ -2,23 +2,25 @@ package com.example.back.entity;
 
 import jakarta.persistence.*;
 import jakarta.persistence.Embeddable;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 import java.io.Serializable;
 import java.util.Objects;
 
 @Embeddable
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
+@Builder
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class ShoppingCartDetailId implements Serializable {
-    @Column(name = "ShoppingCartId")
-    private Integer shoppingCartId;
+//    @Column(name = "ShoppingCartId")
+    Integer shoppingCartId;
 
-    @Column(name = "ProductId")
-    private Integer productId;
+//    @Column(name = "ProductId")
+    Integer productId;
 
     @Override
     public boolean equals(Object o) {

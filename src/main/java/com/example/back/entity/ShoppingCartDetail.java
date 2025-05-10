@@ -3,31 +3,35 @@ package com.example.back.entity;
 import jakarta.persistence.*;
 import jakarta.persistence.Table;
 import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 import java.math.BigDecimal;
 
 @Entity
 @Table(name = "SHOPPINGCARTDETAIL")
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
+@Builder
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class ShoppingCartDetail {
     @EmbeddedId
-    private ShoppingCartDetailId id;
+    ShoppingCartDetailId id;
 
     @Column(name = "Quantity")
-    private Integer quantity;
+    Integer quantity;
 
     @Column(name = "Total")
-    private BigDecimal total;
+    BigDecimal total;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("shoppingCartId")
-    @JoinColumn(name = "ShoppingCartId")
-    private ShoppingCart shoppingCart;
+    @JoinColumn(name = "shopping_cart_id")
+    ShoppingCart shoppingCart;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("productId")
-    @JoinColumn(name = "ProductId")
-    private Product product;
+    @JoinColumn(name = "product_id")
+    Product product;
 }

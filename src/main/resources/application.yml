@@ -10,26 +10,32 @@
 #    hibernate:
 #      ddl-auto: update
 api:
-  key: api/v1
+  key: /api/v1
 spring:
-  port: 3080
+  port: 8080
 
   datasource:
-    url: jdbc:mysql://localhost:3306/foxy_shop?useSSL=false&serverTimezone=UTC
-    username: root
-    password:
+    url: jdbc:mysql://localhost:3306/foxystore?useSSL=false&serverTimezone=UTC
+    username: duy
+    password: Duy14112004@
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
-      ddl-auto: none
+      ddl-auto: update
     show-sql: true
     properties:
       hibernate:
         format_sql: true
   mysql:
-    database: foxy_shop
+    database: foxystore
 
   security:
     user:
       name: admin
       password: Duy14112004@
+logging:
+  level:
+    org.springframework.security: DEBUG
+    org.springframework.web: DEBUG
+    org.springframework.web.filter: DEBUG
+    org.springframework.http: DEBUG

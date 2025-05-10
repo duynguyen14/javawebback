@@ -2,34 +2,38 @@ package com.example.back.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "REVIEW")
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
+@Builder
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ReviewId")
-    private Integer reviewId;
+    Integer reviewId;
 
     @Column(name = "Comment")
-    private String comment;
+    String comment;
 
     @Column(name = "Rating")
-    private Integer rating;
+    Integer rating;
 
     @Column(name = "Time")
-    private LocalDateTime time;
+    LocalDateTime time;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ProductId")
-    private Product product;
+    Product product;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "Id")
-    private User user;
+    User user;
 }

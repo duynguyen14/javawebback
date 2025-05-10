@@ -2,26 +2,30 @@ package com.example.back.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 @Entity
 @Table(name = "IMAGE")
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
+@Builder
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Image {
     @Id
     @Column(name = "ImageId")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer imageId;
+    Integer imageId;
 
     @Column(name = "Image")
-    private String image;
+    String image;
 
     @Column(name = "Description")
-    private String description;
+    String description;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ProductId")
-    private Product product;
+    Product product;
 }
 

@@ -2,40 +2,44 @@ package com.example.back.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "ADDRESS")
-@Data
+@Getter
+@Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Address {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "AddressId")
-    private Integer addressId;
+    Integer addressId;
 
     @Column(name = "City")
-    private String city;
+    String city;
 
     @Column(name = "Street")
-    private String street;
+    String street;
 
     @Column(name = "DetailedAddress")
-    private String detailedAddress;
+    String detailedAddress;
 
     @Column(name = "Name")
-    private String name;
+    String name;
 
     @Column(name = "PhoneNumber")
-    private Integer phoneNumber;
+    Integer phoneNumber;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "Id")
-    private User user;
+    User user;
 
     @OneToMany(mappedBy = "address", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Bill> bills = new ArrayList<>();
+    List<Bill> bills = new ArrayList<>();
 }

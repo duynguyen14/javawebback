@@ -1,57 +1,62 @@
 package com.example.back.entity;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
+import lombok.experimental.FieldDefaults;
+
 import java.time.LocalDate;
 import java.util.*;
 
 
-import lombok.AllArgsConstructor;
-
-import lombok.NoArgsConstructor;
-
-
 @Entity
 @Table(name = "USER")
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
+@Builder
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class User {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    Integer id;
 
     @Column(name = "Email")
-    private String email;
+    String email;
 
     @Column(name = "UserName")
-    private String userName;
+    String userName;
 
     @Column(name = "Password")
-    private String password;
+    String password;
 
     @Column(name = "Status")
-    private String status;
+    String status;
 
     @Column(name = "Gender")
-    private String gender;
+    String gender;
 
     @Column(name = "DOB")
-    private LocalDate dob;
+    LocalDate dob;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Address> addresses = new ArrayList<>();
+    List<Address> addresses = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Bill> bills = new ArrayList<>();
+    List<Bill> bills = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Review> reviews = new ArrayList<>();
+    List<Review> reviews = new ArrayList<>();
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private ShoppingCart shoppingCart;
+    ShoppingCart shoppingCart;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<UserRole> userRoles = new ArrayList<>();
+    @ManyToMany
+    @JoinTable(
+            name = "user_role",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    List<Role> roles;
 }
 

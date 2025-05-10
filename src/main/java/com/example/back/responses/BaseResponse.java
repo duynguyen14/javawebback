@@ -21,4 +21,5 @@ public class BaseResponse {
     @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss", shape = JsonFormat.Shape.STRING)
     @JsonProperty("updated_at")
     private LocalDateTime updatedAt;
+
 }
