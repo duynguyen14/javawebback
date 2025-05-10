@@ -2,27 +2,31 @@ package com.example.back.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 
 @Entity
 @Table(name = "BILLDETAIL")
-@Data
+@Getter
+@Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class BillDetail {
     @EmbeddedId
-    private BillDetailId id;
+    BillDetailId id;
 
     @Column(name = "Quantity")
-    private Integer quantity;
+    Integer quantity;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("billId")
-    @JoinColumn(name = "BillId")
-    private Bill bill;
+    @JoinColumn(name = "bill_id")
+    Bill bill;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("productId")
-    @JoinColumn(name = "ProductId")
-    private Product product;
+    @JoinColumn(name = "product_id")
+    Product product;
 }

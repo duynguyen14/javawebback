@@ -2,6 +2,7 @@ package com.example.back.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -9,29 +10,32 @@ import java.util.List;
 
 @Entity
 @Table(name = "BILL")
-@Data
+@Getter
+@Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Bill {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "BillId")
-    private Integer billId;
+    Integer billId;
 
     @Column(name = "Time")
-    private LocalDateTime time;
+    LocalDateTime time;
 
     @Column(name = "Status")
-    private String status;
+    String status;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "Id")
-    private User user;
+    User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "AddressId")
-    private Address address;
+    Address address;
 
     @OneToMany(mappedBy = "bill", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<BillDetail> billDetails = new ArrayList<>();
+    List<BillDetail> billDetails = new ArrayList<>();
 }

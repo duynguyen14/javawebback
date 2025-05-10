@@ -2,25 +2,29 @@ package com.example.back.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "CATALOG")
-@Data
+@Getter
+@Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Catalog {
     @Id
     @Column(name = "CatalogId")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer catalogId;
+    Integer catalogId;
 
     @Column(name = "Name")
-    private String name;
+    String name;
 
     @OneToMany(mappedBy = "catalog", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Category> categories = new ArrayList<>();
+    List<Category> categories = new ArrayList<>();
 }
 

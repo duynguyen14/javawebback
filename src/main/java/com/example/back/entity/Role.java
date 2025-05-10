@@ -3,27 +3,31 @@ package com.example.back.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "ROLE")
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
+@Builder
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Role {
     @Id
     @Column(name = "RoleId")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer roleId;
+    Integer roleId;
 
     @Column(name = "RoleName")
-    private String roleName;
+    String roleName;
 
     @Column(name = "Description")
-    private String description;
+    String description;
 
-    @OneToMany(mappedBy = "role", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<UserRole> userRoles = new ArrayList<>();
+    @ManyToMany(mappedBy = "roles")
+    List<User> users;
 }

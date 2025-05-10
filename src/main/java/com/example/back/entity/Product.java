@@ -2,6 +2,7 @@ package com.example.back.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 
 import java.math.BigDecimal;
@@ -12,42 +13,45 @@ import java.util.Set;
 
 @Entity
 @Table(name = "PRODUCT")
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
+@Builder
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class Product {
     @Id
     @Column(name = "ProductId")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer productId;
+    Integer productId;
 
     @Column(name = "Name")
-    private String name;
+    String name;
 
     @Column(name = "Price")
-    private BigDecimal price;
+    BigDecimal price;
 
     @Column(name = "Quantity")
-    private Integer quantity;
+    Integer quantity;
 
     @Column(name = "Description")
-    private String description;
+    String description;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CategoryId")
-    private Category category;
+    Category category;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Image> images = new ArrayList<>();
+    List<Image> images = new ArrayList<>();
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Review> reviews = new ArrayList<>();
+    List<Review> reviews = new ArrayList<>();
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<BillDetail> billDetails = new ArrayList<>();
+    List<BillDetail> billDetails = new ArrayList<>();
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<ShoppingCartDetail> cartDetails = new ArrayList<>();
+    List<ShoppingCartDetail> cartDetails = new ArrayList<>();
 
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
@@ -55,5 +59,5 @@ public class Product {
             joinColumns = @JoinColumn(name = "ProductId"),
             inverseJoinColumns = @JoinColumn(name = "SizeId")
     )
-    private Set<Size> sizes = new HashSet<>();
+    Set<Size> sizes = new HashSet<>();
 }

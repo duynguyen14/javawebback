@@ -7,4 +7,5 @@ public interface UserRepository extends JpaRepository<User,Integer> {
 //    boolean existsByPhoneNumber(String phoneNumber);
     boolean existsByEmail(String email);
     // Các hàm cần thiết tự thêm nhé
+
 }

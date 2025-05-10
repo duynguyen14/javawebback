@@ -3,6 +3,7 @@ package com.example.back.entity;
 import jakarta.persistence.*;
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -13,11 +14,12 @@ import java.util.Objects;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class BillDetailId implements Serializable {
-    @Column(name = "BillId")
+//    @Column(name = "BillId")
     private Integer billId;
 
-    @Column(name = "ProductId")
+//    @Column(name = "ProductId")
     private Integer productId;
 
     @Override

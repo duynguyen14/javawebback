@@ -25,12 +25,11 @@ public class GlobalException {
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ResponseEntity<ResponseObject> handleGeneralException(Exception exception) {
-        return ResponseEntity.internalServerError().body(
-                ResponseObject.builder()
-                        .status(HttpStatus.INTERNAL_SERVER_ERROR)
+        return ResponseEntity
+                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(ResponseObject.builder()
                         .message(exception.getMessage())
-                        .build()
-        );
+                        .build());
     }
     @ExceptionHandler(DataNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
@@ -40,6 +39,5 @@ public class GlobalException {
                 .message(exception.getMessage())
                 .build());
     }
-
 
 }

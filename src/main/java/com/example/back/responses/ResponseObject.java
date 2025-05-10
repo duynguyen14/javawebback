@@ -5,7 +5,7 @@ import org.springframework.http.HttpStatus;
 
 @Data//toString
 @Builder
-public class ResponseObject {
+public class    ResponseObject {
     @JsonProperty("message")
     private String message;
 

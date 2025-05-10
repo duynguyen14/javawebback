@@ -2,28 +2,32 @@ package com.example.back.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import lombok.experimental.FieldDefaults;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
 @Table(name = "SHOPPINGCART")
-@Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
+@Builder
+@FieldDefaults(level = AccessLevel.PRIVATE)
 public class ShoppingCart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ShoppingCartId")
-    private Integer shoppingCartId;
+    Integer shoppingCartId;
 
     @Column(name = "Description")
-    private String description;
+    String description;
 
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "Id")
-    private User user;
+    User user;
 
     @OneToMany(mappedBy = "shoppingCart", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<ShoppingCartDetail> cartDetails = new ArrayList<>();
+        List<ShoppingCartDetail> cartDetails = new ArrayList<>();
 }
