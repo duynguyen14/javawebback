@@ -39,3 +39,6 @@ logging:
     org.springframework.web: DEBUG
     org.springframework.web.filter: DEBUG
     org.springframework.http: DEBUG
+jwt:
+  signerKey : ThisIsASecretKeyWithAtLeast32Characters!
+  expiration: 86400000
