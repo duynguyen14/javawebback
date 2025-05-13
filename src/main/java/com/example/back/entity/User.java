@@ -41,13 +41,13 @@ public class User {
     LocalDate dob;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    List<Address> addresses = new ArrayList<>();
+    List<Address> addresses;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    List<Bill> bills = new ArrayList<>();
+    List<Bill> bills;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    List<Review> reviews = new ArrayList<>();
+    List<Review> reviews;
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     ShoppingCart shoppingCart;
@@ -60,5 +60,8 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     Set<Role> roles;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    List<FavoriteProduct> favoriteProducts;
 }
 

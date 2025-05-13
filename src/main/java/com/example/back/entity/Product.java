@@ -7,6 +7,7 @@ import lombok.experimental.FieldDefaults;
 
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -38,6 +39,12 @@ public class Product {
     @Column(name = "Description")
     String description;
 
+    @Column(name = "CreatedDate")
+    LocalDateTime createdDate;
+
+    @Column(name = "SoldCount")
+    Integer soldCount;
+
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CategoryId")
@@ -67,4 +74,8 @@ public class Product {
             inverseJoinColumns = @JoinColumn(name = "SizeId")
     )
     Set<Size> sizes = new HashSet<>();
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    List<FavoriteProduct> favoriteProducts;
 }
