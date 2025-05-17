@@ -32,6 +32,7 @@ public class UserService {
     PasswordEncoder passwordEncoder;
     RoleRepository roleRepository;
     JWTUntil jwtUntil;
+
     public UserRegisterResponse createUser(UserRegister userRegister){
         if(userRepository.existsByEmail(userRegister.getEmail())){
             throw new AppException(ErrorCodes.USER_EXISTED);

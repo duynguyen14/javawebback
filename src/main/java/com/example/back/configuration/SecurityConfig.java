@@ -57,7 +57,6 @@ public class SecurityConfig {
                     .requestMatchers("/resources/**", "/static/**", "/public/**", "/images/**", "/css/**", "/js/**").permitAll()
                     .anyRequest().authenticated();
         });
-
         httpSecurity.oauth2ResourceServer(outh2->
                 outh2.jwt(jwtConfigurer ->
                         jwtConfigurer.decoder(jwtDecoder())

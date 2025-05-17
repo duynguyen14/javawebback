@@ -26,7 +26,7 @@ public class BillDetail {
     Bill bill;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @MapsId("productId")
-    @JoinColumn(name = "product_id")
-    Product product;
+    @MapsId("productSizeId")
+    @JoinColumn(name = "product_size_id")
+    ProductSize productSize;
 }

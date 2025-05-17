@@ -8,6 +8,7 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -27,6 +28,8 @@ public class Size {
     @Column(name = "SizeName")
     String sizeName;
 
-    @ManyToMany(mappedBy = "sizes")
-    Set<Product> products = new HashSet<>();
+
+    @OneToMany
+    Set<ProductSize> productSizes;
+
 }

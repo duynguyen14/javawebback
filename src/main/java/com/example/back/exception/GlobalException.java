@@ -6,6 +6,7 @@ import com.example.back.enums.ErrorCodes;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
@@ -36,23 +37,16 @@ public class GlobalException {
         apiResponse.setMessage(ErrorCodes.UNAUTHORIZED.getMessage());
         return ResponseEntity.status(ErrorCodes.UNAUTHORIZED.getStatus()).body(apiResponse);
     }
-    // moi cho
-//    @ExceptionHandler(Exception.class)
-//    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-//    public ResponseEntity<ResponseObject> handleGeneralException(Exception exception) {
-//        return ResponseEntity
-//                .status(HttpStatus.INTERNAL_SERVER_ERROR)
-//                .body(ResponseObject.builder()
-//                        .message(exception.getMessage())
-//                        .build());
-//    }
-//    @ExceptionHandler(DataNotFoundException.class)
-//    @ResponseStatus(HttpStatus.NOT_FOUND)
-//    public ResponseEntity<?> handleResourceNotFoundException(DataNotFoundException exception) {
-//        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ResponseObject.builder()
-//                .status(HttpStatus.NOT_FOUND)
-//                .message(exception.getMessage())
-//                .build());
-//    }
 
+    @ExceptionHandler(value = MethodArgumentNotValidException.class)
+    public ResponseEntity<APIResponse> handleMethodArgumentNotValidException(MethodArgumentNotValidException methodArgumentNotValidException){
+            String message =methodArgumentNotValidException.getFieldError().getDefaultMessage();
+            System.out.println("message "+message);
+            ErrorCodes errorCodes = ErrorCodes.valueOf(message);
+            APIResponse apiResponse =new APIResponse();
+            apiResponse.setMessage(errorCodes.getMessage());
+            apiResponse.setCode(errorCodes.getCode());
+            return ResponseEntity.status(errorCodes.getStatus()).body(apiResponse);
+
+    }
 }

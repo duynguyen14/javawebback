@@ -10,6 +10,16 @@ select *from catalog;
 
 insert into category (category_id, name, catalog_id)
 values
+(21,"Đầm và váy",2),
+(22,"Áo sơ mi blouse",2),
+(23,"Áo thun",2),
+(24,"Áo khoác",2),
+(25,"Chân váy",2),
+(26,"Quần jeans",2),
+(27,"Quần lengging",2),
+(28,"Đồ thể thao",2),
+(29,"Áo sơ mi blouse",2),
+
 (31,"Giày dép",3),
 (32,"Túi xách",3),
 (33,"Thắt lưng",3),
@@ -19,7 +29,7 @@ values
 (37,"Trang sức",3);
 select *from category;
 
-INSERT INTO product (product_id, created_date, description, name, price, quantity, sold_count, category_id) 
+INSERT INTO product (product_id, created_date, description, name, price, quantity, sold_count, category_id)
 VALUES
 (180, '2024-06-12', 'Giày Nike SB Force 58 Skate Red White Like Auth', 'Giày Nike SB Force 58 Skate Red White Like Auth', 850000, 1000, 230, 31),
 (181, '2024-09-25', 'Giày Nike Air Force 1 Low All White Best Quality', 'Giày Nike Air Force 1 Low All White Best Quality', 900000, 1000, 115, 31),
@@ -133,9 +143,416 @@ VALUES
 (273, '2024-07-12', 'Kính mát gọng nhựa wayfarer - WAY 0052 - Màu nâu sáng', 584000, 1000, 244, 35),
 (274, '2024-07-15', 'Kính mắt hình đa giác gọng nhỏ - SPE 0008 - Màu bạc', 535000, 1000, 173, 35);
 
+-- quân --
 
+INSERT INTO product (product_id, created_date, description, name, price, quantity, sold_count, category_id) VALUES
+(84, '2025-07-01', NULL, 'Floral Vein Dress - Đầm lụa hoa cổ V', 1990000, 1000, 42, 21),
+(85, '2025-07-02', NULL, 'Sunbloom Dress – Đầm lụa họa tiết hoa pastel', 1690000, 1000, 25, 21),
+(86, '2025-07-03', NULL, 'Élégance Blanche – Đầm ren trắng tay ngắn', 1790000, 1000, 33, 21),
+(87, '2025-07-04', NULL, 'Cream Whisper Dress – Đầm lụa ren suông', 2190000, 1000, 16, 21),
+(88, '2025-07-05', NULL, 'Sunleaf Dress - Đầm lụa ôm xếp ly', 1590000, 1000, 47, 21),
+(89, '2025-07-06', NULL, 'Whisper White Lace – Đầm ren midi tay bồng', 1790000, 1000, 21, 21),
+(90, '2025-07-07', NULL, 'Linen Whisper Top – Áo ren dệt hoạ tiết lá', 850000, 1000, 38, 21),
+(91, '2025-07-08', NULL, 'Peach Dress - Đầm cổ V đuôi cá Đầm 2 lớp', 845000, 1000, 14, 21),
+(92, '2025-07-09', NULL, 'Sunray Top – Áo thun trễ vai thêu hoa', 850000, 1000, 19, 21),
+(93, '2025-07-10', NULL, 'Cloud Drift Pants – Quần dài ống suông lụa', 1090000, 1000, 29, 21),
+(94, '2025-07-11', NULL, 'Leafline Muse - Áo sơ mi lụa cổ V', 950000, 1000, 36, 21);
+
+
+INSERT INTO product (product_id, created_date, description, name, price, quantity, sold_count, category_id) VALUES
+(95, '2025-05-13', NULL, 'Chân váy dáng vừa', 200000, 1000, 23, 21),
+(96, '2025-05-13', NULL, 'Váy Bánh Bèo Tay Ngắn Dáng Bồng Xòe Vải Ren MELLYSTORE Chất Liệu Ren Đính Kim Sa Cao Cấp Đẹp Quyến Rũ ,Sang Trọng', 399000, 1000, 57, 21),
+(97, '2025-05-13', NULL, 'Đầm phối tua rua cài cúc bất đối xứng phong cách thanh lịch cho nữ', 500000, 1000, 12, 21),
+(98, '2025-05-13', NULL, 'Đầm cài nút xếp ly màu trơn thanh lịch cho nữ L74ED183', 1099000, 1000, 35, 21),
+(99, '2025-05-13', NULL, 'Chân váy Trơn Phối Nút Dây Kéo Trước Xếp Ly Họa Tiết Tinh Tế L47ED090 (Kaki)', 499000, 1000, 41, 21),
+(100, '2025-05-13', NULL, 'Váy suông đơn giản cắt xẻ cho nữ', 799000, 1000, 8, 21),
+(101, '2025-05-13', NULL, 'Váy cổ bèo nhún trơn đơn giản cho nữ', 699000, 1000, 66, 21),
+(102, '2025-05-13', NULL, 'Váy suông trơn đơn giản cho nữ', 550000, 1000, 19, 21),
+(103, '2025-05-13', NULL, 'Váy vải khâu thắt lưng ren trơn giản dị dành cho nữ', 750000, 1000, 71, 21),
+(104, '2025-05-13', NULL, 'Đầm cơ bản màu trơn phong cách thường ngày cho nữ', 899000, 1000, 30, 21);
+
+update product set created_date='2025-06-10' where category_id=21;
+
+INSERT INTO product (product_id, created_date, description, name, price, quantity, sold_count, category_id) VALUES
+(105, '2025-05-14', NULL, 'Áo mùa hè cổ điển dành cho sinh viên áo sơ mi ngắn tay màu trơn phiên bản Hàn Quốc của áo sơ mi dáng rộng nửa tay nữ', 199000, 1000, 27, 22),
+(106, '2025-05-14', NULL, 'Áo Sơ Mi Tay Dài Teelab Basic Oxford Shirts Unisex Form Oversize Local Brand', 450000, 1000, 41, 22),
+(107, '2025-05-14', NULL, 'Áo Sơ Mi Kẻ Thêu Hoa BST03 Dài Tay Unisex By PEABOO Form Rộng Thoáng Mát Dành Cho Nam Nữ', 230000, 1000, 19, 22),
+(108, '2025-05-14', NULL, 'Áo Kiểu Tay Phồng Ngắn Phối Ren Màu Sắc Tương Phản Phong Cách Pháp Cho Nữ', 699000, 1000, 36, 22),
+(109, '2025-05-14', NULL, 'Áo Sơ Mi Tay Ngắn Kẻ Sọc Local Brand Unisex Form Oversize 3 Màu Xanh, Hồng, Xám ABandon A8', 566000, 1000, 22, 22),
+(110, '2025-05-14', NULL, 'Tianlesiwei American Street College Style Áo Sơ Mi Đa Năng Mùa Hè Retro Waffle Hip-Hop Unisex Phong Cách Áo Sơ Mi Tay Ngắn', 899000, 1000, 45, 22),
+(111, '2025-05-14', NULL, 'Áo sơ mi ngắn tay SUNNYCOLORChiffon, hai lớp, khăn quàng cổ sọc màu hồng, thời trang mùa hè', 345000, 1000, 17, 22),
+(112, '2025-05-14', NULL, 'ZHELIHANGFEI Áo Thun Ngắn Tay Giả Hai Lớp Kèm Khăn Choàng Thời Trang Xuân Hè Cho Nữ', 678000, 1000, 33, 22),
+(113, '2025-05-14', NULL, 'Áo Thun Kiểu Nữ Phối Cổ Nơ Kẻ Thuỷ Thủ Hàng Loại 1 Có Bigsize 45-75kg Phong Cách Ullzzang', 455000, 1000, 29, 22),
+(114, '2025-05-14', NULL, 'Áo Sơ Mi Công Sở Nữ Đẹp Tay Dài Cổ Thắt Nơ Chất Lụa_(Hàng Lụa Cao Cấp)', 567000, 1000, 38, 22);
+
+INSERT INTO product (product_id, created_date, description, name, price, quantity, sold_count, category_id) VALUES
+(115, '2025-05-20', NULL, 'Áo Thun Nam Nữ Unisex Tay Lỡ By JOLI Mã BST01 Hình in Mini Cute Chất Cotton Form Rộng Phong Cách Ulzzang J Joli Trendy', 123000, 1000, 18, 23),
+(116, '2025-05-20', NULL, 'Áo Thun Outerity Pesca / D&B Collection / Unisex Localbrand', 399000, 1000, 25, 23),
+(117, '2025-05-20', NULL, 'Áo Thun Nữ, Áo Phông Unisex By PEABOO Mã TN So Happy Chất Cotton Thoáng Mát Form Rộng Tay Lỡ Cho Nam Nữ', 299000, 1000, 33, 23),
+(118, '2025-05-20', NULL, 'ÁO THUN 19Autumn NAD Unisex Áo phông nam nữ tay lỡ oversize form rộng chất liệu cotton dệt tổ ong thoáng mát', 199000, 1000, 14, 23),
+(119, '2025-05-20', NULL, 'Áo thun from rộng nam nữ LETSGOT NAD Unisex -Áo phông kiểu dáng thể thao chất liệu cotton cá sấu', 99000, 1000, 21, 23),
+(120, '2025-05-20', NULL, 'SALMO áo thun nữ local brand vintage fashion áo phông tay lỡ unisex Nâu xám 100%Cotton', 900000, 1000, 27, 23),
+(121, '2025-05-20', NULL, 'SALMO local brand áo thun mùa hè nữ trắng cổ tròn áo phông tay lỡ unisex tee 100%Cotton', 50000, 1000, 22, 23),
+(122, '2025-05-20', NULL, 'Ruidiandian 2024 Mới In Hình Thời Trang Tay Ngắn Cho Nữ Mùa Hè Cổ Tròn Slim Áo Thun Hàn Quốc Chất Lượng Cao Phong Cách Đại Học', 450000, 1000, 38, 23),
+(123, '2025-05-20', NULL, 'Áo thun Xược Nữ cổ tim tay ngắn in hình ALICEVN1990,Áo thun nữ babytee form vừa cổ V, Chất Cotton xược, thun giấy', 590000, 1000, 19, 23),
+(124, '2025-05-20', NULL, 'Áo Hai Dây, Áo ba lỗ chất thun xược ALICEVN1990, Áo thun mùa hè thoáng mát, siêu xinh hàn quốc', 876000, 1000, 31, 23);
+
+INSERT INTO product (product_id, created_date, description, name, price, quantity, sold_count, category_id) VALUES
+(125, '2025-05-10', NULL, 'Áo Hoodie Zip, Áo Khoác Nam Nữ Unisex By PEABOO Mã Trơn Basic Chất Nỉ Bông Form Rộng Mũ 2 Lớp', 350000, 1000, 26, 24),
+(126, '2025-05-10', NULL, 'Áo Khoác Nỉ Hoodie Zip COTTON Thêu NQ30 AM Form Rộng Nam Nữ Unisex', 250000, 1000, 19, 24),
+(127, '2025-05-10', NULL, 'Áo khoác nam nữ lót lông cừu HMIA, Áo khoác unisex mặc được cả 2 mặt dày dày siêu ấm áo đại Hàn', 199000, 1000, 33, 24),
+(128, '2025-05-10', NULL, 'Áo Khoác Gió Nam Nữ Mũ Cao Cấp 2 Lớp JOLI Mã BST01 Chống Nước Chống Nắng Form Rộng Kiểu Dáng Unisex J Joli Trendy', 299000, 1000, 40, 24),
+(129, '2025-05-10', NULL, 'Áo khoác hoodie zip nam nữ form rộng, áo hoodie XMLSANDER có mũ 2 lớp kiểu dáng Basic thời trang Unisex Hàn Quốc', 499000, 1000, 15, 24),
+(130, '2025-05-10', NULL, 'Áo Khoác Hoodie Zip EMPTI CAO SU LỬNG 04', 150000, 1000, 22, 24),
+(131, '2025-05-10', NULL, 'Áo Gió 2 Lớp Cao Cấp Unisex Chống Gió Chống Nước Nhẹ Kiểu Dáng Đơn Giản Có Mũ và Phối Túi Tiện Lợi', 550000, 1000, 29, 24),
+(132, '2025-05-10', NULL, 'Áo khoác gió nữ 2 lớp oversize dáng rộng/ Áo kéo khoá kèm mũ trùm phong cách JK Harajuku học sinh Nhật Bản H0026', 500000, 1000, 31, 24),
+(133, '2025-05-10', NULL, 'Áo khoác phao mác cao su AGAIN 37° mùa đông dày dặn nam nữ dài tay bo chun Hàn Quốc phối màu form dài rộng', 570000, 1000, 37, 24),
+(134, '2025-05-10', NULL, 'Áo Khoác Cardigan Teelab Season 24 Unisex Form Oversize Local Brand AK111', 340000, 1000, 24, 24);
+
+INSERT INTO product (product_id, created_date, description, name, price, quantity, sold_count, category_id) VALUES
+(135, '2025-05-11', NULL, 'Chân Váy xếp ly UNDERCOOL Tenis Lưng Cao Kiểu Tennis Skirt Chất Tuyết Mưa CV05', 670000, 1000, 12, 25),
+(136, '2025-05-11', NULL, 'Chân Váy dài xẻ đùi dáng ôm công sở sang trọng Oxatyl M133 cho nữ mùa hè phong cách thời trang nữ', 560000, 1000, 8, 25),
+(137, '2025-05-11', NULL, 'Chân váy dài dáng xoè basic MOOLYS MK007', 199000, 1000, 21, 25),
+(138, '2025-05-11', NULL, 'RUICHE Chân váy chân váy chữ Casual Đơn giản Minimalist Fashion', 560000, 1000, 33, 25),
+(139, '2025-05-11', NULL, 'Chân váy thể thao nữ xếp li có quần bảo hộ túi bên hông', 299000, 1000, 16, 25),
+(140, '2025-05-11', NULL, 'Chân váy nữ Nhật Vy dáng dài xếp ly có lót chất lụa phù hợp công sở dạo phố sang chảnh', 499000, 1000, 27, 25),
+(141, '2025-05-11', NULL, 'Chân Váy Xếp Ly TOTOSA Chữ A Có Dây Nơ Buộc 2 Bên Hông bản H1', 100000, 1000, 10, 25),
+(142, '2025-05-11', NULL, 'Chân Váy Ren Chữ A Lưng Cao Xếp Tầng Thời Trang Mới Cho Nữ', 399000, 1000, 19, 25),
+(143, '2025-05-11', NULL, 'Chân Váy Chữ A Basic UNDERCOOL Kèm Thắt Lưng Cá Tính 2 Màu Đen Xám', 299000, 1000, 25, 25),
+(144, '2025-05-11', NULL, 'Chân Váy Nữ Lưng Cao Túi Hộp Hai Màu Be Đen', 199000, 1000, 14, 25);
+
+INSERT INTO product (product_id, created_date, description, name, price, quantity, sold_count, category_id) VALUES
+(145, '2025-05-12', NULL, 'Quần bò ống rộng nữ cạp cao CHERRY quần jeans dáng suông', 123000, 1000, 17, 26),
+(146, '2025-05-12', NULL, 'Quần jean nữ lưng cao màu bụi', 560000, 1000, 28, 26),
+(147, '2025-05-12', NULL, 'Quần ống rộng thắt dây nơ vải Ruby cao cấp', 780000, 1000, 11, 26),
+(148, '2025-05-12', NULL, 'Quần Jean Nữ THE QUAO Trơn Dáng Dài Basic Lưng Cao Ống', 450000, 1000, 20, 26),
+(149, '2025-05-12', NULL, 'Quần Jean 𝑩𝒚𝒄𝒂𝒎𝒄𝒂𝒎 Ống Rộng Tôn Dáng Quần Bò', 299000, 1000, 14, 26),
+(150, '2025-05-12', NULL, 'Quần Ống Rộng Lưng Thun Sau Ống Suông Culottes Lưng Cao', 599000, 1000, 9, 26),
+(151, '2025-05-12', NULL, 'Quần bò xuông jean giấy mềm cạp chun sau rúm thanh lịch cao cấp', 340000, 1000, 25, 26),
+(152, '2025-05-12', NULL, 'Quần Jean Nữ Rách Gối Ống Rộng Lưng Cao Kyubi', 560000, 1000, 33, 26),
+(153, '2025-05-12', NULL, 'Quần đũi Nhật culottes đũi dáng dài ống rộng siêu Hot dáng suông', 340000, 1000, 7, 26),
+(154, '2025-05-12', NULL, 'Quần kaki nữ ống rộng túi hộp cạp cao trẻ trung', 123000, 1000, 19, 26),
+(155, '2025-05-12', NULL, 'Quần jeans nữ Chollima ống rộng SIMPLE JEAN Unisex', 299000, 1000, 23, 26);
+
+INSERT INTO product (product_id, created_date, description, name, price, quantity, sold_count, category_id) VALUES
+(156, '2025-05-15', NULL, 'Quần Legging Nữ Cạp Cao Hai Khuy Khóa Trước', 90000, 1000, 23, 27),
+(157, '2025-05-15', NULL, 'Quần legging đùi ngố lửng cạp cao nâng mông thể thao', 59000, 1000, 15, 27),
+(158, '2025-05-15', NULL, 'Quần legging ống loe dài tập yoga', 89000, 1000, 9, 27),
+(159, '2025-05-15', NULL, 'Quần tập yoga/thể thao Lovito lưng cao màu trơn', 599000, 1000, 17, 27),
+(160, '2025-05-15', NULL, 'Quần legging đùi Choobe biker nữ lửng ngố đồ mặc nhà lưng thun ôm cao cấp tập gym yoga bigsize', 69000, 1000, 13, 27),
+(161, '2025-05-15', NULL, 'Quần legging tập yoga thể dục lưng cao màu mới', 200000, 1000, 10, 27),
+(162, '2025-05-15', NULL, 'Quần tập gym yoga legging nữ cạp cao Yling vải su đúc nâng v3 tôn dáng cao cấp', 199000, 1000, 21, 27),
+(163, '2025-05-15', NULL, 'Set đồ tập áo Miley Long Top trắng mix quần Zenna legging đen Today U Wear', 890000, 1000, 14, 27),
+(164, '2025-05-15', NULL, 'Quần Tập Thể Dục Cảm Giác Nhẹ Như Không Thiết Kế Túi Ẩn May Liền Một Mảnh', 56000, 1000, 18, 27),
+(165, '2025-05-15', NULL, 'Quần Legging Short Đùi Nữ Vải Thun Lạnh Poly Co Giãn', 450000, 1000, 26, 27);
+
+INSERT INTO product (product_id, created_date, description, name, price, quantity, sold_count, category_id) VALUES
+(166, '2025-05-16', NULL, 'Bộ thể thao nam nữ ERNSTING NAD.Đồ bộ thể thao unisex', 99000, 1000, 22, 28),
+(167, '2025-05-16', NULL, 'Set đồ tập gym yoga aerobic KSMLOOK, bộ đồ tập nữ', 199000, 1000, 18, 28),
+(168, '2025-05-16', NULL, 'Set đồ tập gym yoga thể thao áo Lia top xám mix chân váy Lina', 299000, 1000, 25, 28),
+(169, '2025-05-16', NULL, 'Áo thun thể thao nữ cổ tim REETA tập gym,chạy bộ,cầu lông,yoga', 89000, 1000, 30, 28),
+(170, '2025-05-16', NULL, 'Áo thun thể thao ngắn tay Kylie short top Today U Wear cổ polo thoáng', 150000, 1000, 13, 28),
+(171, '2025-05-16', NULL, 'Bộ Đồ Tập Thể Thao Nữ Topbody Co Giãn 4 Chiều Năng Động', 235000, 1000, 20, 28),
+(172, '2025-05-16', NULL, 'Áo thể thao Gladimax Croptop Dài Tay chất thun co giãn mặc tập gym, yoga , aerobic.', 59000, 1000, 27, 28),
+(173, '2025-05-16', NULL, 'Áo thun thể thao nữ tập gym yoga Fitme vạt bầu thoáng khí thấm hút mồ hôi', 99000, 1000, 11, 28),
+(174, '2025-05-16', NULL, 'Bộ Quần Áo Tập Gym Yoga Nữ Cao Cấp', 299000, 1000, 14, 28),
+(175, '2025-05-16', NULL, 'Quần Short Đùi Thể Thao 2 Lớp Nữ Reeta Co Giãn 4 Chiều Tập Gym - Yoga - Chạy bộ - Aerobic Nhiều Màu', 499000, 1000, 19, 28);
 
 select *from product;
+
+INSERT INTO image (image_id, image, product_id) VALUES
+(440, '440', 84),
+(441, '441', 84),
+(442, '442', 84),
+(443, '443', 84),
+(444, '444', 84),
+
+(445, '445', 85),
+(446, '446', 85),
+(447, '447', 85),
+(448, '448', 85),
+(449, '449', 85),
+
+(450, '450', 86),
+(451, '451', 86),
+(452, '452', 86),
+(453, '453', 86),
+(454, '454', 86),
+
+(455, '455', 87),
+(456, '456', 87),
+(457, '457', 87),
+(458, '458', 87),
+(459, '459', 87),
+
+(460, '460', 88),
+(461, '461', 88),
+(462, '462', 88),
+(463, '463', 88),
+(464, '464', 88),
+
+(465, '465', 89),
+(466, '466', 89),
+(467, '467', 89),
+
+(468, '468', 90),
+(469, '469', 90),
+(470, '470', 90),
+(471, '471', 90),
+(472, '472', 90),
+
+(473, '473', 91),
+(474, '474', 91),
+(475, '475', 91),
+(476, '476', 91),
+(477, '477', 91),
+
+(478, '478', 92),
+(479, '479', 92),
+(480, '480', 92),
+(481, '481', 92),
+(482, '482', 92),
+
+(483, '483', 93),
+(484, '484', 93),
+(485, '485', 93),
+(486, '486', 93),
+(487, '487', 93),
+
+(488, '488', 94),
+(489, '489', 94),
+(490, '490', 94),
+(491, '491', 94),
+(492, '492', 94);
+
+
+
+INSERT INTO image (image_id, description, image, product_id) VALUES
+(501, NULL, '501', 95),
+(502, NULL, '502', 95),
+(503, NULL, '503', 95),
+(504, NULL, '504', 96),
+(505, NULL, '505', 96),
+(506, NULL, '506', 96),
+(507, NULL, '507', 96),
+(508, NULL, '508', 97),
+(509, NULL, '509', 97),
+(510, NULL, '510', 97),
+(511, NULL, '511', 97),
+(512, NULL, '512', 98),
+(513, NULL, '513', 98),
+(514, NULL, '514', 98),
+(515, NULL, '515', 99),
+(516, NULL, '516', 99),
+(517, NULL, '517', 99),
+(518, NULL, '518', 99),
+(519, NULL, '519', 100),
+(520, NULL, '520', 100),
+(521, NULL, '521', 100),
+(522, NULL, '522', 100),
+(523, NULL, '523', 101),
+(524, NULL, '524', 101),
+(525, NULL, '525', 101),
+(526, NULL, '526', 102),
+(527, NULL, '527', 102),
+(528, NULL, '528', 102),
+(529, NULL, '529', 103),
+(530, NULL, '530', 103),
+(531, NULL, '531', 103),
+(532, NULL, '532', 103),
+(533, NULL, '533', 104),
+(534, NULL, '534', 104),
+(535, NULL, '535', 104);
+
+
+INSERT INTO image (image_id, description, image, product_id) VALUES
+(536, NULL, '536', 105),
+(537, NULL, '537', 105),
+(538, NULL, '538', 105),
+(539, NULL, '539', 105),
+(540, NULL, '540', 105),
+(541, NULL, '541', 106),
+(542, NULL, '542', 106),
+(543, NULL, '543', 106),
+(544, NULL, '544', 106),
+(545, NULL, '545', 107),
+(546, NULL, '546', 107),
+(547, NULL, '547', 107),
+(548, NULL, '548', 108),
+(549, NULL, '549', 108),
+(550, NULL, '550', 108),
+(551, NULL, '551', 108),
+(552, NULL, '552', 109),
+(553, NULL, '553', 109),
+(554, NULL, '554', 109),
+(555, NULL, '555', 109),
+(556, NULL, '556', 110),
+(557, NULL, '557', 110),
+(558, NULL, '558', 110),
+(559, NULL, '559', 111),
+(560, NULL, '560', 111),
+(561, NULL, '561', 111),
+(562, NULL, '562', 111),
+(563, NULL, '563', 112),
+(564, NULL, '564', 112),
+(565, NULL, '565', 112),
+(566, NULL, '566', 112),
+(567, NULL, '567', 113),
+(568, NULL, '568', 113),
+(569, NULL, '569', 113),
+(570, NULL, '570', 113),
+(571, NULL, '571', 113),
+(572, NULL, '572', 114),
+(573, NULL, '573', 114),
+(574, NULL, '574', 114),
+(575, NULL, '575', 114),
+(576, NULL, '576', 114);
+
+
+INSERT INTO image (image_id, description, image, product_id) VALUES
+(577, NULL, '577', 115),
+(578, NULL, '578', 115),
+(579, NULL, '579', 115),
+(580, NULL, '580', 115),
+(581, NULL, '581', 115),
+(582, NULL, '582', 116),
+(583, NULL, '583', 116),
+(584, NULL, '584', 116),
+(585, NULL, '585', 116),
+(586, NULL, '586', 117),
+(587, NULL, '587', 117),
+(588, NULL, '588', 117),
+(589, NULL, '589', 117),
+(590, NULL, '590', 117),
+(591, NULL, '591', 118),
+(592, NULL, '592', 118),
+(593, NULL, '593', 118),
+(594, NULL, '594', 118),
+(595, NULL, '595', 118),
+(596, NULL, '596', 119),
+(597, NULL, '597', 119),
+(598, NULL, '598', 119),
+(599, NULL, '599', 119),
+(600, NULL, '600', 119),
+(601, NULL, '601', 120),
+(602, NULL, '602', 120),
+(603, NULL, '603', 120),
+(604, NULL, '604', 120),
+(605, NULL, '605', 121),
+(606, NULL, '606', 121),
+(607, NULL, '607', 121),
+(608, NULL, '608', 121),
+(609, NULL, '609', 122),
+(610, NULL, '610', 122),
+(611, NULL, '611', 122),
+(612, NULL, '612', 122),
+(613, NULL, '613', 122),
+(614, NULL, '614', 123),
+(615, NULL, '615', 123),
+(616, NULL, '616', 123),
+(617, NULL, '617', 123),
+(618, NULL, '618', 123),
+(619, NULL, '619', 124),
+(620, NULL, '620', 124),
+(621, NULL, '621', 124),
+(622, NULL, '622', 124),
+(623, NULL, '623', 124);
+
+INSERT INTO image (image_id, description, image, product_id) VALUES
+(624, NULL, '624', 125),
+(625, NULL, '625', 125),
+(626, NULL, '626', 125),
+(627, NULL, '627', 125),
+(628, NULL, '628', 126),
+(629, NULL, '629', 126),
+(630, NULL, '630', 126),
+(631, NULL, '631', 126),
+(632, NULL, '632', 127),
+(633, NULL, '633', 127),
+(634, NULL, '634', 127),
+(635, NULL, '635', 127),
+(636, NULL, '636', 128),
+(637, NULL, '637', 128),
+(638, NULL, '638', 128),
+(639, NULL, '639', 128),
+(640, NULL, '640', 128),
+(641, NULL, '641', 129),
+(642, NULL, '642', 129),
+(643, NULL, '643', 129),
+(644, NULL, '644', 129),
+(645, NULL, '645', 130),
+(646, NULL, '646', 130),
+(647, NULL, '647', 130),
+(648, NULL, '648', 130),
+(649, NULL, '649', 130),
+(650, NULL, '650', 131),
+(651, NULL, '651', 131),
+(652, NULL, '652', 131),
+(653, NULL, '653', 131),
+(654, NULL, '654', 132),
+(655, NULL, '655', 132),
+(656, NULL, '656', 132),
+(657, NULL, '657', 132),
+(658, NULL, '658', 133),
+(659, NULL, '659', 133),
+(660, NULL, '660', 133),
+(661, NULL, '661', 133),
+(662, NULL, '662', 133),
+(663, NULL, '663', 134),
+(664, NULL, '664', 134),
+(665, NULL, '665', 134),
+(666, NULL, '666', 134),
+(667, NULL, '667', 134);
+
+INSERT INTO image (image_id, description, image, product_id) VALUES
+(668, NULL, '668', 135),
+(669, NULL, '669', 135),
+(670, NULL, '670', 135),
+(671, NULL, '671', 135),
+(672, NULL, '672', 135),
+(673, NULL, '673', 136),
+(674, NULL, '674', 136),
+(675, NULL, '675', 136),
+(676, NULL, '676', 136),
+(677, NULL, '677', 136),
+(678, NULL, '678', 137),
+(679, NULL, '679', 137),
+(680, NULL, '680', 137),
+(681, NULL, '681', 137),
+(682, NULL, '682', 138),
+(683, NULL, '683', 138),
+(684, NULL, '684', 138),
+(685, NULL, '685', 138),
+(686, NULL, '686', 138),
+(687, NULL, '687', 139),
+(688, NULL, '688', 139),
+(689, NULL, '689', 139),
+(690, NULL, '690', 139),
+(691, NULL, '691', 139),
+(692, NULL, '692', 140),
+(693, NULL, '693', 140),
+(694, NULL, '694', 140),
+(695, NULL, '695', 140),
+(696, NULL, '696', 141),
+(697, NULL, '697', 141),
+(698, NULL, '698', 141),
+(699, NULL, '699', 141),
+(700, NULL, '700', 141),
+(701, NULL, '701', 142),
+(702, NULL, '702', 142),
+(703, NULL, '703', 142),
+(704, NULL, '704', 142),
+(705, NULL, '705', 143),
+(706, NULL, '706', 143),
+(707, NULL, '707', 143),
+(708, NULL, '708', 143),
+(709, NULL, '709', 143),
+(710, NULL, '710', 144),
+(711, NULL, '711', 144),
+(712, NULL, '712', 144),
+(713, NULL, '713', 144),
+(714, NULL, '714', 144);
+
 
 -- Giày Nike SB Force 58 Skate Red White Like Auth (product_id = 180)
 INSERT INTO image (image_id, description, image, product_id) VALUES
@@ -683,14 +1100,15 @@ INSERT INTO image (image_id, description, image, product_id) VALUES
 (1473, NULL, '1473', 274),
 (1474, NULL, '1474', 274),
 (1475, NULL, '1475', 274);
+
+
+
 select *from image;
 
-insert into size(size_id, size_name) 
+insert into size(size_id, size_name)
 values
 (1,"S"),
 (2,"M"),
-
-
 (3,"L"),
 (4,"XL");
 
@@ -700,3 +1118,5 @@ SELECT p.product_id, s.size_id
 FROM product p
 CROSS JOIN size s;
 select *from product_size;
+
+-- insert into review (review_id, comment, rating, time, product_id)--

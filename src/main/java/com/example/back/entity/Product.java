@@ -52,30 +52,30 @@ public class Product {
 
     @JsonIgnore
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    List<Image> images = new ArrayList<>();
+    Set<Image> images = new HashSet<>();
 
     @JsonIgnore
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     List<Review> reviews = new ArrayList<>();
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    List<BillDetail> billDetails = new ArrayList<>();
+//    @JsonIgnore
+//    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    List<BillDetail> billDetails = new ArrayList<>();
+//
+//    @JsonIgnore
+//    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    List<ShoppingCartDetail> cartDetails = new ArrayList<>();
 
     @JsonIgnore
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    List<ShoppingCartDetail> cartDetails = new ArrayList<>();
+    Set<ProductSize> productSizes;
 
-    @JsonIgnore
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-    @JoinTable(
-            name = "PRODUCT_SIZE",
-            joinColumns = @JoinColumn(name = "ProductId"),
-            inverseJoinColumns = @JoinColumn(name = "SizeId")
-    )
-    Set<Size> sizes = new HashSet<>();
 
     @JsonIgnore
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     List<FavoriteProduct> favoriteProducts;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "sale_id")
+    Sale sale;
 }

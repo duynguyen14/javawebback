@@ -12,12 +12,26 @@ public enum ErrorCodes {
     USER_EXISTED(1001,"user is existed", HttpStatus.BAD_REQUEST),
     USER_NOT_FOUND(1002,"user not found", HttpStatus.NOT_FOUND),
     USER_NAME_OR_PASSWORD_INCORRECT(1003, "user name or password incorrect", HttpStatus.BAD_REQUEST),
+    EMAIL_IS_REQUIRED(1004, "Email không được để trống", HttpStatus.BAD_REQUEST),
+    USER_NAME_IS_REQUIRED(1008, "Tên người dùng không được để trống", HttpStatus.BAD_REQUEST),
+    EMAIL_INVALID(1005, "Email không đúng định dạng", HttpStatus.BAD_REQUEST),
+    PASSWORD_IS_REQUIRED(1006, "Mật khẩu không được để trống", HttpStatus.BAD_REQUEST),
+    PASSWORD_TOO_SHORT(1007, "password must be at least 6 characters", HttpStatus.BAD_REQUEST),
+
+
+
 
     UNAUTHENTICATED(2000,"unauthorized", HttpStatus.UNAUTHORIZED),
 
     UNAUTHORIZED(2001, "you do not have permission",HttpStatus.FORBIDDEN),
-    ROLE_NOT_FOUND(1111, "role not found", HttpStatus.NOT_FOUND),
+    ROLE_NOT_FOUND(1101, "role not found", HttpStatus.NOT_FOUND),
 
+
+    PRODUCT_NOT_FOUND(1201,"product not found",HttpStatus.NOT_FOUND),
+    PRODUCT_QUANTITY_UNAVAILABLE(1202, "product quantity unavailable", HttpStatus.BAD_REQUEST),
+
+
+    SIZE_NOT_FOUND(1301, "size not found", HttpStatus.NOT_FOUND),
     ;
 
     ErrorCodes(int code, String message, HttpStatus status) {

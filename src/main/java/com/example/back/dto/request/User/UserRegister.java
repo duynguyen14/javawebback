@@ -11,11 +11,11 @@ import lombok.experimental.FieldDefaults;
 @Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class UserRegister {
-    @NotBlank(message = "Tên người dùng khoong được để trống")
+    @NotBlank(message = "USER_NAME_IS_REQUIRED")
     String userName;
-    @Email(message = "Email không đúng định dạng")
-    @NotBlank(message = "Email không được để trống")
+    @Email(message = "EMAIL_INVALID")
+    @NotBlank(message = "EMAIL_IS_REQUIRED")
     String email;
-    @NotBlank(message = "Mật khẩu không được để trống")
+    @NotBlank(message = "PASSWORD_IS_REQUIRED")
     String password;
 }
