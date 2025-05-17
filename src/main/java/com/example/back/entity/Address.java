@@ -37,7 +37,7 @@ public class Address {
     Integer phoneNumber;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "Id")
+    @JoinColumn(name = "user_id")
     User user;
 
     @OneToMany(mappedBy = "address", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

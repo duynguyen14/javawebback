@@ -1,6 +1,5 @@
 package com.example.back.entity;
 
-import jakarta.persistence.*;
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,7 +19,7 @@ public class BillDetailId implements Serializable {
     private Integer billId;
 
 //    @Column(name = "ProductId")
-    private Integer productId;
+    private Integer productSizeId;
 
     @Override
     public boolean equals(Object o) {
@@ -28,12 +27,12 @@ public class BillDetailId implements Serializable {
         if (o == null || getClass() != o.getClass()) return false;
         BillDetailId that = (BillDetailId) o;
         return Objects.equals(billId, that.billId) &&
-                Objects.equals(productId, that.productId);
+                Objects.equals(productSizeId, that.productSizeId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(billId, productId);
+        return Objects.hash(billId, productSizeId);
     }
 }
 

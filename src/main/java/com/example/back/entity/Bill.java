@@ -29,7 +29,7 @@ public class Bill {
     String status;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "Id")
+    @JoinColumn(name = "user_id")
     User user;
 
     @ManyToOne(fetch = FetchType.LAZY)

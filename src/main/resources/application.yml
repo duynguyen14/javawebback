@@ -13,7 +13,6 @@ api:
   key: /api/v1
 spring:
   port: 8080
-
   datasource:
     url: jdbc:mysql://localhost:3306/foxystore?useSSL=false&serverTimezone=UTC
     username: duy

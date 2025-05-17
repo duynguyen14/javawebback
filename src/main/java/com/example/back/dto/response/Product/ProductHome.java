@@ -6,13 +6,18 @@ import lombok.Data;
 import lombok.experimental.FieldDefaults;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Set;
+
 @Builder
 @Data
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class ProductHomeDTO {
+public class ProductHome {
     Integer id;
     String name;
     BigDecimal price;
     Integer quantity;
+    Integer soldCount;
     List<String> images;
+    Set<ProductSizeDTO> productSizeDTOS;
+    Integer discountPercent;
 }
