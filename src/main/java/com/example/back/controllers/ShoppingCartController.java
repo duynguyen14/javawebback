@@ -7,10 +7,9 @@ import com.example.back.service.ShoppingCartService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("${api.key}/")
@@ -29,5 +28,10 @@ public class ShoppingCartController {
                 .result(shoppingCartService.addCartResponse(cartRequest))
                 .build();
     }
-
+    @GetMapping("cart")
+    public APIResponse<List<AddCartResponse>> getCartResponse(){
+        return  APIResponse.<List<AddCartResponse>>builder()
+                .result(shoppingCartService.getCart())
+                .build();
+    }
 }
