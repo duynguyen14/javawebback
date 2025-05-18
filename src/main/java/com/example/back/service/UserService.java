@@ -2,6 +2,7 @@ package com.example.back.service;
 
 import com.example.back.dto.request.User.UserLoginDTO;
 import com.example.back.dto.request.User.UserRegister;
+import com.example.back.dto.response.User.ManagementUserResponse;
 import com.example.back.dto.response.User.UserLoginResponse;
 import com.example.back.dto.response.User.UserRegisterResponse;
 import com.example.back.mapper.UserMapper;
@@ -60,4 +61,8 @@ public class UserService {
                 .build();
     }
 
+    public List<ManagementUserResponse> managementUserResponses(){
+        List<User> users =userRepository.findAll();
+        return users.stream().map(userMapper::toManagementUserResponse).toList();
+    }
 }

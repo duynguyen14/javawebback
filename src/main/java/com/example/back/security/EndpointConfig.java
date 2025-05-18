@@ -10,7 +10,8 @@ public class EndpointConfig {
             new SecuredEndpoint("/api/v1/user/login", HttpMethod.POST),
             new SecuredEndpoint("/api/v1/user/demo", HttpMethod.GET),
             new SecuredEndpoint("/api/v1/products/home",HttpMethod.GET),
-            new SecuredEndpoint("/api/v1/product/{id}",HttpMethod.GET)
+            new SecuredEndpoint("/api/v1/product/{id}",HttpMethod.GET),
+            new SecuredEndpoint("/api/v1/user/list",HttpMethod.GET)
     );
 
     public static final List<SecuredEndpoint> USER_ENDPOINTS = List.of(
