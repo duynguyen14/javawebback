@@ -32,6 +32,7 @@ public class ProductSize {
 
 //    @OneToMany(mappedBy = "productSize",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
 //    ShoppingCartDetail shoppingCartDetail;
+
     @OneToMany(mappedBy = "productSize",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     List<BillDetail> billDetail;
 }

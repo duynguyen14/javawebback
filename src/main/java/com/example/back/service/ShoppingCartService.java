@@ -14,8 +14,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.util.Optional;
-
+import java.util.List;
+import java.util.stream.Collectors;
+import com.zaxxer.hikari.HikariDataSource;
+import com.zaxxer.hikari.util.ConcurrentBag;
 @Service
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE,makeFinal = true)
@@ -66,6 +68,29 @@ public class ShoppingCartService {
                 .sizeName(size.getSizeName())
                 .build();
 
+    }
+    @Transactional
+    public List<AddCartResponse> getCart(){
+        String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user =userRepository.findByUserName(userName).orElseThrow(()->new AppException(ErrorCodes.USER_NOT_FOUND));
+        ShoppingCart shoppingCart =shoppingCartRepository.findByUser(user).orElseGet(()->
+                shoppingCartRepository.save(ShoppingCart.builder()
+                        .user(user)
+                        .build())
+        );
+        List<ShoppingCartDetail> shoppingCartDetail=shoppingCartDetailRepository.findByShoppingCart(shoppingCart);
+        return shoppingCartDetail.stream().map(detail->{
+            Product product= detail.getProductSize().getProduct();
+            Size size = detail.getProductSize().getSize();
+            return AddCartResponse.builder()
+                    .productId(product.getProductId())
+                    .productName(product.getName())
+                    .price(product.getPrice())
+                    .images(product.getImages().stream().map(Image::getImage).collect(Collectors.toSet()))
+                    .quantity(detail.getQuantity())
+                    .sizeName(size.getSizeName())
+                    .build();
+        }).toList();
     }
 
 }

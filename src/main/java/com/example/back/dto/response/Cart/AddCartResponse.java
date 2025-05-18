@@ -5,6 +5,8 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.math.BigDecimal;
+import java.util.List;
+import java.util.Set;
 
 @Data
 @AllArgsConstructor
@@ -17,4 +19,5 @@ public class AddCartResponse {
     String sizeName;
     Integer quantity;
     BigDecimal price;
+    Set<String> images;
 }
