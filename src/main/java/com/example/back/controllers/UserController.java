@@ -4,6 +4,7 @@ package com.example.back.controllers;
 import com.example.back.dto.request.User.UserLoginDTO;
 import com.example.back.dto.request.User.UserRegister;
 import com.example.back.dto.response.APIResponse;
+import com.example.back.dto.response.User.ManagementUserResponse;
 import com.example.back.dto.response.User.UserLoginResponse;
 import com.example.back.dto.response.User.UserRegisterResponse;
 import com.example.back.entity.Role;
@@ -66,12 +67,10 @@ public class UserController {
 //            }
 //
 //    }
-    @GetMapping("admin/demo")
-    public String demo(){
-        return "demo";
-    }
-    @GetMapping("user/demo")
-    public String demo1(){
-        return "user demo";
+    @GetMapping("user/list")
+    public APIResponse<List<ManagementUserResponse>> listUser(){
+        return APIResponse.<List<ManagementUserResponse>>builder()
+                .result(userService.managementUserResponses())
+                .build();
     }
 }
