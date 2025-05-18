@@ -8,11 +8,16 @@ import com.example.back.dto.response.User.UserLoginResponse;
 import com.example.back.dto.response.User.UserRegisterResponse;
 import com.example.back.entity.Role;
 import com.example.back.entity.User;
+import com.example.back.repository.UserRepository;
+import com.example.back.security.CurrentUser;
+import com.example.back.security.user.UserPrincipal;
 import com.example.back.service.UserService;
 import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.jwt.Jwt;
@@ -31,6 +36,9 @@ import java.util.stream.Collectors;
 public class UserController {
     UserService userService;
 
+    @Autowired
+    private UserRepository userRepository;
+
 
     @PostMapping("/user/register")
     public APIResponse<UserRegisterResponse> createUser(@RequestBody @Valid UserRegister userRegister){
@@ -44,6 +52,13 @@ public class UserController {
                 .result(userService.loginUser(userLoginDTO))
                 .build();
     }
+    @GetMapping("/user/me")
+//    @PreAuthorize("hasRole('USER')")
+    public User getCurrentUser(@CurrentUser UserPrincipal userPrincipal) {
+        return userRepository.findById(userPrincipal.getId())
+                .orElseThrow(() -> new RuntimeException("User not found"));
+    }
+
 //    @GetMapping("user/myinfor")
 //    public APIResponse<User> getMyInfor(){
 //        Object userDetails = SecurityContextHolder.getContext().getAuthentication().getPrincipal();

@@ -31,6 +31,14 @@ public class User {
     @Column(name = "Password")
     String password;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "auth_provider")
+    AuthProvider authProvider;
+    @Column(nullable = false)
+    private Boolean emailVerified = false;
+    @Column(name = "provider_id")
+    String providerId;
+
     @Column(name = "Status")
     String status;
 
