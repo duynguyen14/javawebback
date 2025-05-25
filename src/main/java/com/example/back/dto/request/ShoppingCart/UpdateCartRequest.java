@@ -4,12 +4,11 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class CartRequest {
-    Integer productId;
-    String sizeName;
+public class UpdateCartRequest {
+    Integer productSizeId;
     Integer quantity;
 }

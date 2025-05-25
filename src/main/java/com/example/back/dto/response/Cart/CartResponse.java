@@ -5,7 +5,6 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 import java.math.BigDecimal;
-import java.util.List;
 import java.util.Set;
 
 @Data
@@ -13,8 +12,8 @@ import java.util.Set;
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Builder
-public class AddCartResponse {
-    Integer productId;
+public class CartResponse {
+    Integer productSizeId;
     String productName;
     String sizeName;
     Integer quantity;

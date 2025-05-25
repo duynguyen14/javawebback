@@ -9,10 +9,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -35,6 +32,23 @@ public class ProductController {
     public APIResponse<ProductDetail> getProductDetail(@PathVariable Integer id){
         return APIResponse.<ProductDetail>builder()
                 .result(productService.getProductDetail(id))
+                .build();
+    }
+    @GetMapping("products")
+    public APIResponse<List<ProductHome>> getAllProduct(
+            @RequestParam(defaultValue = "0") int page
+    ){
+        return  APIResponse.<List<ProductHome>>builder()
+                .result(productService.getAllProduct(page))
+                .build();
+    }
+    @GetMapping("category/{id}")
+    public APIResponse<List<ProductHome>> getByCategory(@PathVariable Integer id ,
+                                                        @RequestParam(defaultValue = "0") int page,
+                                                        @RequestParam(required = false, defaultValue = "newest") String sort
+    ){
+        return APIResponse.<List<ProductHome>>builder()
+                .result(productService.getByCategoryId(id,page,sort))
                 .build();
     }
 }
