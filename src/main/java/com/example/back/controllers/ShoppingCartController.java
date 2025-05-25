@@ -1,9 +1,11 @@
 package com.example.back.controllers;
 
 import com.example.back.dto.request.ShoppingCart.CartRequest;
+import com.example.back.dto.request.ShoppingCart.UpdateCartRequest;
 import com.example.back.dto.response.APIResponse;
-import com.example.back.dto.response.Cart.AddCartResponse;
+import com.example.back.dto.response.Cart.CartResponse;
 import com.example.back.service.ShoppingCartService;
+import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -20,18 +22,30 @@ public class ShoppingCartController {
     ShoppingCartService shoppingCartService;
 
     @PostMapping("cart")
-    public APIResponse<AddCartResponse> addCartResponseAPIResponse(@RequestBody CartRequest cartRequest){
+    public APIResponse<CartResponse> addCartResponseAPIResponse(@RequestBody @Valid CartRequest cartRequest){
         System.out.println(cartRequest.getProductId());
         System.out.println(cartRequest.getQuantity());
-        System.out.println(cartRequest.getSize());
-        return APIResponse.<AddCartResponse>builder()
+        System.out.println(cartRequest.getSizeName());
+        return APIResponse.<CartResponse>builder()
                 .result(shoppingCartService.addCartResponse(cartRequest))
                 .build();
     }
     @GetMapping("cart")
-    public APIResponse<List<AddCartResponse>> getCartResponse(){
-        return  APIResponse.<List<AddCartResponse>>builder()
+    public APIResponse<List<CartResponse>> getCartResponse(){
+        return  APIResponse.<List<CartResponse>>builder()
                 .result(shoppingCartService.getCart())
+                .build();
+    }
+    @DeleteMapping("cart/{productSizeId}")
+    public APIResponse<List<CartResponse>> deleteProductSizeInCart(@PathVariable Integer productSizeId){
+        return APIResponse.<List<CartResponse>>builder()
+                .result(shoppingCartService.deleteShoppingCartDetail(productSizeId))
+                .build();
+    }
+    @PatchMapping("cart/update")
+    public APIResponse<List<CartResponse>> updateCartDetail(@RequestBody @Valid UpdateCartRequest updateCartRequest){
+        return APIResponse.<List<CartResponse>>builder()
+                .result(shoppingCartService.updateShoppingCartDetail(updateCartRequest))
                 .build();
     }
 }

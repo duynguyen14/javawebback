@@ -29,9 +29,12 @@ public enum ErrorCodes {
 
     PRODUCT_NOT_FOUND(1201,"product not found",HttpStatus.NOT_FOUND),
     PRODUCT_QUANTITY_UNAVAILABLE(1202, "product quantity unavailable", HttpStatus.BAD_REQUEST),
-
+    CATEGORY_NOT_FOUND(1203,"category not found", HttpStatus.NOT_FOUND),
 
     SIZE_NOT_FOUND(1301, "size not found", HttpStatus.NOT_FOUND),
+
+    SHOPPING_CART_NOT_FOUND(1401, "shopping cart not found", HttpStatus.NOT_FOUND),
+    SHOPPING_CART_DETAIL_NOT_FOUND(1402, "shopping cart detail not found", HttpStatus.NOT_FOUND),
     ;
 
     ErrorCodes(int code, String message, HttpStatus status) {
