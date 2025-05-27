@@ -13,7 +13,16 @@ public class EndpointConfig {
             new SecuredEndpoint("/api/v1/product/{id}",HttpMethod.GET),
             new SecuredEndpoint("/api/v1/user/list",HttpMethod.GET),
             new SecuredEndpoint("/api/v1/products",HttpMethod.GET),
-            new SecuredEndpoint("/api/v1/category/{id}",HttpMethod.GET)
+            new SecuredEndpoint("/api/v1/category/{id}",HttpMethod.GET),
+            new SecuredEndpoint("/api/v1/address",HttpMethod.GET),
+            new SecuredEndpoint("/api/v1/address",HttpMethod.POST),
+            new SecuredEndpoint("/api/v1/address/{id}",HttpMethod.DELETE),
+            new SecuredEndpoint("/api/v1/address",HttpMethod.PATCH),
+            new SecuredEndpoint("/api/v1/bill/getAll",HttpMethod.GET)
+
+
+
+
     );
 
     public static final List<SecuredEndpoint> USER_ENDPOINTS = List.of(

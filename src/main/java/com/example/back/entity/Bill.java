@@ -28,6 +28,9 @@ public class Bill {
     @Column(name = "Status")
     String status;
 
+    @Column(name = "total")
+    Double total;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     User user;

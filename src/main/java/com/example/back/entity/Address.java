@@ -36,6 +36,9 @@ public class Address {
     @Column(name = "PhoneNumber")
     Integer phoneNumber;
 
+    @Column(name = "isDefault")
+    Boolean isDefault;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     User user;
