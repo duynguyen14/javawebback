@@ -18,8 +18,8 @@ public enum ErrorCodes {
     PASSWORD_IS_REQUIRED(1006, "Mật khẩu không được để trống", HttpStatus.BAD_REQUEST),
     PASSWORD_TOO_SHORT(1007, "password must be at least 6 characters", HttpStatus.BAD_REQUEST),
 
-
-
+    ADDRESS_IS_DEFAULTED(1101, "address is defaulted", HttpStatus.BAD_REQUEST),
+    ADDRESS_NOT_FOUND(1102,"address not found", HttpStatus.NOT_FOUND),
 
     UNAUTHENTICATED(2000,"unauthorized", HttpStatus.UNAUTHORIZED),
 
