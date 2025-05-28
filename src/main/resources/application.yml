@@ -1,0 +1,67 @@
+#spring:
+#  datasource:
+#    url: jdbc:mysql://localhost:3306/foxystore
+#    username: duy
+#    password: Duy14112004@
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#  jpa:
+#    database-platform: org.hibernate.dialect.MySQL8Dialect
+#    show-sql : true
+#    hibernate:
+#      ddl-auto: update
+api:
+  key: /api/v1
+spring:
+  port: 8080
+  datasource:
+    url: jdbc:mysql://localhost:3306/foxystore?useSSL=false&serverTimezone=UTC
+    username: root
+    password: ""
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  mysql:
+    database: foxystore
+
+  security:
+    user:
+      name: admin
+      password: Duy14112004@
+    oauth2:
+      client:
+        registration:
+          google:
+            client-id: ${GOOGLE_CLIENT_ID}
+            client-secret: ${GOOGLE_CLIENT_SECRET}
+            redirect-uri: "{baseUrl}/oauth2/callback/{registrationId}"
+            scope:
+              - email
+              - profile
+logging:
+  level:
+    org.springframework.security: DEBUG
+    org.springframework.web: DEBUG
+    org.springframework.web.filter: DEBUG
+    org.springframework.http: DEBUG
+    level:
+      org:
+        hibernate:
+          SQL=DEBUG:
+jwt:
+  signerKey : "YourNewSecretKeyHereMustBeAtLeast32BytesLongForSecurity123456789012345678901234"
+  expiration: 86400000
+app:
+  auth:
+    tokenSecret: "YourNewSecretKeyHereMustBeAtLeast32BytesLongForSecurity123456789012345678901234"
+    tokenExpirationMsec: 86400000
+  cors:
+    allowedOrigins: http://localhost:5173
+  oauth2:
+    authorizedRedirectUris:
+      - http://localhost:5173/oauth2/redirect
+
