@@ -2,12 +2,14 @@ package com.example.back.security;
 
 import com.example.back.entity.Role;
 import com.example.back.entity.User;
+import com.example.back.security.user.UserPrincipal;
 import com.nimbusds.jose.JWSAlgorithm;
 import com.nimbusds.jose.JWSHeader;
 import com.nimbusds.jose.crypto.MACSigner;
 import com.nimbusds.jwt.JWTClaimsSet;
 import com.nimbusds.jwt.SignedJWT;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 
@@ -29,13 +31,13 @@ public class JWTUntil {
     int expiration;
 
 
-    public String GenerateAccessToken(User user){
+    public String GenerateAccessToken(UserPrincipal user){
 //        header
 //        System.out.println("kieu "+ expiration);
         JWSHeader jwsHeader =new JWSHeader(JWSAlgorithm.HS256);
 //      payload
         JWTClaimsSet jwtClaimsSet =new JWTClaimsSet.Builder()
-                .subject(user.getUserName())
+                .subject(user.getName())
                 .issueTime(new Date())
                 .expirationTime(Date.from(Instant.now().plus(expiration, ChronoUnit.MINUTES)))
 //                .claim("roles",user.getRoles().stream().map(Role::getRoleName).collect(Collectors.toList()))
@@ -68,13 +70,13 @@ public class JWTUntil {
     public Date extractDate(String token){
         return extractAllClaimsSet(token).getExpirationTime();
     }
-    public boolean checkToken(String token ,String userName){
-        return userName.equals(extractUserName(token)) && new Date().before(extractDate(token));
+    public boolean checkToken(String token){
+        return new Date().before(extractDate(token));
     }
-    public List<String> buildScope(User user){
+    public List<String> buildScope(UserPrincipal user){
         List<String> roles=null;
-        if(!CollectionUtils.isEmpty(user.getRoles())){
-            roles= user.getRoles().stream().map(Role::getRoleName).collect(Collectors.toList());
+        if(!CollectionUtils.isEmpty(user.getAuthorities())){
+            roles= user.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList());
         }
         return roles;
     }

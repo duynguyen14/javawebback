@@ -1,4 +1,5 @@
 package com.example.back.security.jwtToken;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
 
@@ -16,6 +17,7 @@ public class AppProperties {
         private long tokenExpirationMsec;
 
         public String getTokenSecret() {
+            System.out.println(tokenSecret);
             return tokenSecret;
         }
 

@@ -1,5 +1,6 @@
 package com.example.back.security.user;
 
+import com.example.back.security.JWTUntil;
 import com.example.back.security.jwtToken.AppProperties;
 import com.example.back.security.jwtToken.TokenProvider;
 import com.example.back.exception.BadRequestException;
@@ -21,14 +22,16 @@ import java.util.Optional;
 public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
     private final TokenProvider tokenProvider;
     private final AppProperties appProperties;
+    private final JWTUntil jwtUntil;
 
     private static final String REDIRECT_URI_PARAM_COOKIE_NAME = "redirect_uri";
     private static final String REDIRECT_URI_PARAM_QUERY_NAME = "redirect_uri";
 
     @Autowired
-    public OAuth2AuthenticationSuccessHandler(TokenProvider tokenProvider, AppProperties appProperties) {
+    public OAuth2AuthenticationSuccessHandler(TokenProvider tokenProvider, AppProperties appProperties,JWTUntil jwtUntil) {
         this.tokenProvider = tokenProvider;
         this.appProperties = appProperties;
+        this.jwtUntil =jwtUntil;
     }
 
     @Override
@@ -64,7 +67,8 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
         }
 
         String targetUrl = redirectUri.orElse(getDefaultTargetUrl());
-        String token = tokenProvider.createToken(authentication);
+        UserPrincipal userPrincipal = (UserPrincipal) authentication.getPrincipal();
+        String token = jwtUntil.GenerateAccessToken(userPrincipal);
 
         System.out.println("✅ Generated token: " + token);
         return UriComponentsBuilder.fromUriString(targetUrl)

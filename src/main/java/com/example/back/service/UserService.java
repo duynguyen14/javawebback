@@ -13,6 +13,7 @@ import com.example.back.exception.AppException;
 import com.example.back.repository.RoleRepository;
 import com.example.back.repository.UserRepository;
 import com.example.back.security.JWTUntil;
+import com.example.back.security.user.UserPrincipal;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -40,6 +41,7 @@ public class UserService {
         }
         User user = userMapper.fromUserRegisterDTO(userRegister);
         user.setPassword(passwordEncoder.encode(userRegister.getPassword()));
+        user.setEmailVerified(Boolean.TRUE);
         HashSet<Role> roles =new HashSet<>();
         Role role=roleRepository.findByRoleName("USER").orElseThrow(()->new AppException(ErrorCodes.ROLE_NOT_FOUND));
         roles.add(role);
@@ -53,7 +55,8 @@ public class UserService {
         if(!passwordEncoder.matches(userLoginDTO.getPassword(), user.getPassword())){
             throw (new AppException(ErrorCodes.USER_NAME_OR_PASSWORD_INCORRECT));
         }
-        String accessToken = jwtUntil.GenerateAccessToken(user);
+        UserPrincipal userPrincipal = UserPrincipal.create(user);
+        String accessToken = jwtUntil.GenerateAccessToken(userPrincipal);
         String refreshToken =null;
         return UserLoginResponse.builder()
                 .accessToken(accessToken)

@@ -4,6 +4,7 @@ import com.example.back.security.CustomAccessDeniedHandler;
 import com.example.back.security.EndpointConfig;
 import com.example.back.security.HttpCookieOAuth2AuthorizationRequestRepository;
 import com.example.back.security.JWTAuthenticationEntryPoint;
+import com.example.back.security.jwtToken.TokenAuthenticationFilter;
 import com.example.back.security.user.OAuth2AuthenticationSuccessHandler;
 import com.example.back.service.CustomOAuth2UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,7 @@ import org.springframework.security.oauth2.server.resource.authentication.JwtAut
 import org.springframework.security.oauth2.server.resource.authentication.JwtGrantedAuthoritiesConverter;
 import org.springframework.security.web.SecurityFilterChain;
 
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -45,6 +47,9 @@ public class SecurityConfig {
     @Autowired
     private OAuth2AuthenticationSuccessHandler oAuth2AuthenticationSuccessHandler;
 
+    @Autowired
+    private TokenAuthenticationFilter tokenAuthenticationFilter;
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
@@ -53,6 +58,7 @@ public class SecurityConfig {
                         .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
                 )
                 .csrf(csrf -> csrf.disable())
+//                .addFilterBefore(tokenAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .formLogin(form -> form.disable())
                 .httpBasic(basic -> basic.disable())
                 .authorizeHttpRequests(auth -> {

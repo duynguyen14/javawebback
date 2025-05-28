@@ -10,28 +10,33 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class UserPrincipal implements OAuth2User, UserDetails {
     private Integer id;
     private String email; // email người dùng
     private String password; // Mật khẩu dùng cho login truền thống
+    private String name;
     private Collection<? extends GrantedAuthority> authorities; //  danh sách quền
     private Map<String, Object> attributes;
 
-    public UserPrincipal(Integer id, String email, String password, Collection<? extends GrantedAuthority> authorities) {
+    public UserPrincipal(Integer id,String name, String email, String password, Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
         this.email = email;
         this.password = password;
+        this.name =name;
         this.authorities = authorities;
     }
 
     // Tạo user ap quyen mac dinh la role user
     public static UserPrincipal create(User user) {
-        List<GrantedAuthority> authorities = Collections.
-                singletonList(new SimpleGrantedAuthority("ROLE_USER"));
+        List<GrantedAuthority> authorities = user.getRoles().stream()
+                .map(role -> new SimpleGrantedAuthority(role.getRoleName()))
+                .collect(Collectors.toList());
 
         return new UserPrincipal(
                 user.getId(),
+                user.getUserName(),
                 user.getEmail(),
                 user.getPassword(),
                 authorities
@@ -60,7 +65,7 @@ public class UserPrincipal implements OAuth2User, UserDetails {
 
     @Override
     public String getUsername() {
-        return email;
+        return name;
     }
 
 //     Những phương thức này giúp xác định tài khoản có còn hợp lệ không.
@@ -101,6 +106,6 @@ public class UserPrincipal implements OAuth2User, UserDetails {
 
     @Override
     public String getName() { // id dinh danh
-        return String.valueOf(id);
+        return name;
     }
 }

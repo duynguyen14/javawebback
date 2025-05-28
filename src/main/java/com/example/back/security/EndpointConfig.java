@@ -20,9 +20,6 @@ public class EndpointConfig {
             new SecuredEndpoint("/api/v1/address",HttpMethod.PATCH),
             new SecuredEndpoint("/api/v1/bill/getAll",HttpMethod.GET)
 
-
-
-
     );
 
     public static final List<SecuredEndpoint> USER_ENDPOINTS = List.of(
@@ -30,7 +27,6 @@ public class EndpointConfig {
             new SecuredEndpoint("/api/v1/cart", HttpMethod.POST),
             new SecuredEndpoint("/api/v1/cart/{productSizeId}",HttpMethod.DELETE),
             new SecuredEndpoint("/api/v1/cart/update",HttpMethod.PATCH)
-
     );
 
     public static final List<SecuredEndpoint> ADMIN_ENDPOINTS = List.of(

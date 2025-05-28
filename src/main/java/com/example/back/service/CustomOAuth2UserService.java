@@ -1,5 +1,9 @@
 package com.example.back.service;
 
+import com.example.back.entity.Role;
+import com.example.back.enums.ErrorCodes;
+import com.example.back.exception.AppException;
+import com.example.back.repository.RoleRepository;
 import com.example.back.security.user.UserPrincipal;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import com.example.back.exception.OAuth2AuthenticationProcessingException;
@@ -17,12 +21,17 @@ import org.springframework.security.oauth2.core.user.OAuth2User;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
+
 @Service
 public class CustomOAuth2UserService extends DefaultOAuth2UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private RoleRepository roleRepository;
     @Override
     public OAuth2User loadUser(OAuth2UserRequest oAuth2UserRequest) throws OAuth2AuthenticationException {
         OAuth2User oAuth2User = super.loadUser(oAuth2UserRequest);
@@ -46,7 +55,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
             throw new OAuth2AuthenticationProcessingException("Email not found from OAuth2 provider");
         }
 
-        Optional<User> userOptional = userRepository.findByEmail(oAuth2UserInfo.getEmail());
+        Optional<User> userOptional = userRepository.findByEmailWithRoles(oAuth2UserInfo.getEmail());
         User user;
 
         if(userOptional.isPresent()) {
@@ -68,13 +77,15 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
 
     private User registerNewUser(OAuth2UserRequest oAuth2UserRequest, OAuth2UserInfo oAuth2UserInfo) {
         User user = new User();
-
         user.setAuthProvider(AuthProvider.valueOf(oAuth2UserRequest.getClientRegistration().getRegistrationId()));
         user.setProviderId(oAuth2UserInfo.getId());
         user.setUserName(oAuth2UserInfo.getName());
         user.setEmail(oAuth2UserInfo.getEmail());
         user.setEmailVerified(true);
-
+        HashSet<Role> roles =new HashSet<>();
+        Role role=roleRepository.findByRoleName("USER").orElseThrow(()->new AppException(ErrorCodes.ROLE_NOT_FOUND));
+        roles.add(role);
+        user.setRoles(roles);
         return userRepository.save(user);
     }
 

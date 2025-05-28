@@ -32,6 +32,7 @@ public class ShoppingCartController {
     }
     @GetMapping("cart")
     public APIResponse<List<CartResponse>> getCartResponse(){
+
         return  APIResponse.<List<CartResponse>>builder()
                 .result(shoppingCartService.getCart())
                 .build();
