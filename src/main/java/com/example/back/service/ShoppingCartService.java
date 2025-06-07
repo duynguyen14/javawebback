@@ -11,7 +11,6 @@ import jakarta.transaction.Transactional;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.springframework.aop.framework.AopConfigException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
@@ -42,7 +41,7 @@ public class ShoppingCartService {
                             .build())
         );
         System.out.println(cartRequest.getProductId());
-        Product product =productRepository.findByProductId(cartRequest.getProductId()).orElseThrow(()-> new AppException(ErrorCodes.PRODUCT_NOT_FOUND));
+        Product product =productRepository.findProductWithDetail(cartRequest.getProductId()).orElseThrow(()-> new AppException(ErrorCodes.PRODUCT_NOT_FOUND));
         Size size =sizeRepository.findBySizeName(cartRequest.getSizeName()).orElseThrow(()-> new AppException(ErrorCodes.SIZE_NOT_FOUND));
         ProductSize productSize =productSizeRepository.findBySizeAndProduct(size,product).orElseThrow(()-> new AppException(ErrorCodes.PRODUCT_NOT_FOUND));
         if(productSize.getQuantity()<cartRequest.getQuantity()){

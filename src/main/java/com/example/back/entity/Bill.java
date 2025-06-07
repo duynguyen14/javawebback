@@ -4,9 +4,12 @@ import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "BILL")
@@ -28,8 +31,11 @@ public class Bill {
     @Column(name = "Status")
     String status;
 
+    @Column(name = "payment_method")
+    String paymentMethod;
+
     @Column(name = "total")
-    Double total;
+    BigDecimal total;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -40,5 +46,5 @@ public class Bill {
     Address address;
 
     @OneToMany(mappedBy = "bill", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    List<BillDetail> billDetails = new ArrayList<>();
+    Set<BillDetail> billDetails = new HashSet<>();
 }

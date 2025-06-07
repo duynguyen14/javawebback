@@ -14,7 +14,6 @@ import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -42,8 +41,15 @@ public class ProductService {
     }
 
     public ProductDetail getProductDetail(Integer id){
-        Product product =productRepository.findByProductId(id).orElseThrow(()->new AppException(ErrorCodes.PRODUCT_NOT_FOUND));
+        Product product =productRepository.findProductWithDetail(id).orElseThrow(()->new AppException(ErrorCodes.PRODUCT_NOT_FOUND));
         return productMapper.toProductDetail(product);
+    }
+    public List<ProductHome> getRelatedProduct(Integer id){
+        Product product =productRepository.findByProductId(id).orElseThrow(()-> new AppException(ErrorCodes.PRODUCT_NOT_FOUND));
+        Category category = product.getCategory();
+        List<Product> products =productRepository.findByCategory(category, PageRequest.of(0,10));
+        return products.stream().map(productMapper::toProductHomeDTO).toList();
+
     }
 
     public List<ProductHome> getAllProduct(int page){
@@ -71,4 +77,7 @@ public class ProductService {
         List<Product> products =productRepository.findByCategory(category,PageRequest.of(page,12,sortOrder));
         return products.stream().map(productMapper::toProductHomeDTO).toList();
     }
+//    public List<ProductHome> searchProduct(String name){
+//
+//    }
 }

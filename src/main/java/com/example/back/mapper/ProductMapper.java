@@ -1,17 +1,16 @@
 package com.example.back.mapper;
 
+import com.example.back.dto.response.Product.FavoriteProductDTO;
 import com.example.back.dto.response.Product.ProductDetail;
 import com.example.back.dto.response.Product.ProductHome;
 import com.example.back.dto.response.Product.ProductSizeDTO;
 import com.example.back.dto.response.Review.ReviewDetail;
-import com.example.back.entity.Image;
-import com.example.back.entity.Product;
-import com.example.back.entity.ProductSize;
-import com.example.back.entity.Size;
+import com.example.back.entity.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Component
@@ -38,9 +37,7 @@ public class ProductMapper {
                 .build();
     }
     public ProductDetail toProductDetail(Product product){
-
-        List<ReviewDetail> reviewDetails =product.getReviews().stream().map(review->reviewMapper.toReviewDetail(review)).toList();
-
+        Set<ReviewDetail> reviewDetails =product.getReviews().stream().map(review->reviewMapper.toReviewDetail(review)).collect(Collectors.toSet());
         return ProductDetail.builder()
                 .id(product.getProductId())
                 .name(product.getName())
@@ -52,11 +49,29 @@ public class ProductMapper {
                 .images(product.getImages().stream().map(Image::getImage).toList())
                 .productSizeDTOS(product.getProductSizes().stream().map(ps->
                         ProductSizeDTO.builder()
+                                .productSizeId(ps.getId())
                                 .sizeName(ps.getSize().getSizeName())
                                 .quantity(ps.getQuantity())
                                 .build()
                 ).collect(Collectors.toSet()))
                 .reviews(reviewDetails)
+                .build();
+    }
+    public FavoriteProductDTO toFavoriteProduct(FavoriteProduct favoriteProduct){
+        return FavoriteProductDTO.builder()
+                .id(favoriteProduct.getProduct().getProductId())
+                .price(favoriteProduct.getProduct().getPrice())
+                .name(favoriteProduct.getProduct().getName())
+                .quantity(favoriteProduct.getProduct().getQuantity())
+                .soldCount(favoriteProduct.getProduct().getSoldCount())
+                .images(favoriteProduct.getProduct().getImages().stream().map(Image::getImage).collect(Collectors.toList()))
+                .productSizeDTOS(favoriteProduct.getProduct().getProductSizes().stream().map(ps->
+                        ProductSizeDTO.builder()
+                                .sizeName(ps.getSize().getSizeName())
+                                .quantity(ps.getQuantity())
+                                .build()
+                ).collect(Collectors.toSet()))
+                .discountPercent(favoriteProduct.getProduct().getSale()!=null ? favoriteProduct.getProduct().getSale().getDiscountPercent():null)
                 .build();
     }
 }

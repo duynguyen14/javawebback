@@ -1,12 +1,14 @@
 package com.example.back.controllers;
 
 
+import com.example.back.dto.request.User.PasswordUpdate;
 import com.example.back.dto.request.User.UserLoginDTO;
 import com.example.back.dto.request.User.UserRegister;
 import com.example.back.dto.response.APIResponse;
 import com.example.back.dto.response.User.ManagementUserResponse;
 import com.example.back.dto.response.User.UserLoginResponse;
 import com.example.back.dto.response.User.UserRegisterResponse;
+import com.example.back.dto.response.User.UserUpdateDTO;
 import com.example.back.entity.Role;
 import com.example.back.entity.User;
 import com.example.back.repository.UserRepository;
@@ -54,34 +56,30 @@ public class UserController {
                 .build();
     }
     @GetMapping("/user/me")
-//    @PreAuthorize("hasRole('USER')")
     public User getCurrentUser(@CurrentUser UserPrincipal userPrincipal) {
         return userRepository.findById(userPrincipal.getId())
                 .orElseThrow(() -> new RuntimeException("User not found"));
     }
+    @GetMapping("user/profile")
+    public APIResponse<UserUpdateDTO> getUserProfile(){
+        return APIResponse.<UserUpdateDTO>builder()
+                .result(userService.getUserInformation())
+                .build();
+    }
 
-//    @GetMapping("user/myinfor")
-//    public APIResponse<User> getMyInfor(){
-//        Object userDetails = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        System.out.println("name "+SecurityContextHolder.getContext().getAuthentication().getName());
-//            if(userDetails instanceof Jwt jwt) {
-//                System.out.println("role "+jwt.getClaim("roles"));
-//                List<String> roleNames =jwt.getClaim("roles");
-//                User user = User.builder()
-//                        .userName(jwt.getSubject())
-//                        .roles(roleNames.stream().map(role->Role.builder().roleName(role).build()).collect(Collectors.toSet()))
-//                        .build();
-//                System.out.println("name " + user.getUserName());
-////                System.out.println("role: " + user.getRoles().stream().map(role -> role.getRoleName()));
-//                return APIResponse.<User>builder()
-//                        .result(user)
-//                        .build();
-//            }
-//            else {
-//                throw new RuntimeException();
-//            }
-//
-//    }
+    @PatchMapping("user/profile")
+    public APIResponse<String> updateUser(@RequestBody @Valid UserUpdateDTO userUpdateDTO){
+        return APIResponse.<String>builder()
+                .result(userService.updateUser(userUpdateDTO))
+                .build();
+    }
+
+    @PostMapping("user/change-password")
+    public APIResponse<String> updatePassword(@RequestBody @Valid PasswordUpdate passwordUpdate){
+        return APIResponse.<String>builder()
+                .result(userService.updatePassword(passwordUpdate))
+                .build();
+    }
     @GetMapping("user/list")
     public APIResponse<List<ManagementUserResponse>> listUser(){
         return APIResponse.<List<ManagementUserResponse>>builder()

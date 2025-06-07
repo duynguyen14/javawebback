@@ -1,19 +1,14 @@
-package com.example.back.dto.response.Review;
+package com.example.back.dto.request.Review;
 
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
-import java.time.LocalDateTime;
-
 @Data
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder
 @FieldDefaults(level = AccessLevel.PRIVATE)
-public class ReviewDetail {
-    Integer id;
+public class ReviewDTO {
     String comment;
     Integer rating;
-    LocalDateTime date;
-    String userName;
 }

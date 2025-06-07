@@ -9,7 +9,9 @@ import java.util.*;
 
 
 @Entity
-@Table(name = "USER")
+@Table(name = "USER",
+    indexes = {@Index(name = "idx_user_name", columnList = "user_name")}
+)
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
@@ -25,7 +27,7 @@ public class User {
     @Column(name = "Email")
     String email;
 
-    @Column(name = "UserName")
+    @Column(name = "user_name",unique = true)
     String userName;
 
     @Column(name = "Password")
@@ -55,7 +57,7 @@ public class User {
     List<Bill> bills;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    List<Review> reviews;
+    Set<Review> reviews;
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     ShoppingCart shoppingCart;
@@ -70,6 +72,6 @@ public class User {
     Set<Role> roles;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    List<FavoriteProduct> favoriteProducts;
+    Set<FavoriteProduct> favoriteProducts;
 }
 
