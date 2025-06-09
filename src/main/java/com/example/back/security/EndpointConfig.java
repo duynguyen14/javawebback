@@ -35,6 +35,10 @@ public class EndpointConfig {
             new SecuredEndpoint("/api/v1/bill/create",HttpMethod.POST),
             new SecuredEndpoint("/api/v1/bill/detail/{id}",HttpMethod.GET),
             new SecuredEndpoint("/api/v1/bill/detail/{id}",HttpMethod.PATCH),
+            new SecuredEndpoint("/api/v1/bill/create/payment",HttpMethod.POST),
+
+
+
             new SecuredEndpoint("/api/v1/favorite/getAll",HttpMethod.GET),
             new SecuredEndpoint("/api/v1/favorite/{id}",HttpMethod.POST),
             new SecuredEndpoint("/api/v1/favorite/{id}",HttpMethod.DELETE),
