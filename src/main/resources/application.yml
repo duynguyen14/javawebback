@@ -1,0 +1,43 @@
+#spring:
+#  datasource:
+#    url: jdbc:mysql://localhost:3306/foxystore
+#    username: duy
+#    password: Duy14112004@
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#  jpa:
+#    database-platform: org.hibernate.dialect.MySQL8Dialect
+#    show-sql : true
+#    hibernate:
+#      ddl-auto: update
+api:
+  key: /api/v1
+spring:
+  port: 8080
+  datasource:
+    url: jdbc:mysql://localhost:3306/foxy_shop?useSSL=false&serverTimezone=UTC
+    username: root
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  mysql:
+    database: foxy_shop
+
+  security:
+    user:
+      name: admin
+      password: Duy14112004@
+logging:
+  level:
+    org.springframework.security: DEBUG
+    org.springframework.web: DEBUG
+    org.springframework.web.filter: DEBUG
+    org.springframework.http: DEBUG
+jwt:
+  signerKey: ThisIsASecretKeyWithAtLeast32Chars!
+  expiration: 86400000
