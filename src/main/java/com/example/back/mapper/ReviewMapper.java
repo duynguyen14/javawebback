@@ -16,6 +16,7 @@ public class ReviewMapper {
                 .rating(review.getRating())
                 .date(review.getTime())
                 .userName(review.getUser().getUserName())
+                .reply(review.getReply())
                 .build();
     }
     public void mapToReviewFromReviewDTO(ReviewDTO reviewDTO, Review review){

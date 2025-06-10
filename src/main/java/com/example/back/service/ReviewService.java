@@ -1,8 +1,11 @@
 package com.example.back.service;
 
 import com.example.back.dto.request.Review.ReviewDTO;
+import com.example.back.dto.response.Review.ReviewDTOResponse;
 import com.example.back.dto.response.Review.ReviewDetail;
-import com.example.back.entity.*;
+import com.example.back.entity.Product;
+import com.example.back.entity.Review;
+import com.example.back.entity.User;
 import com.example.back.enums.BillStatus;
 import com.example.back.enums.ErrorCodes;
 import com.example.back.exception.AppException;
@@ -11,14 +14,16 @@ import com.example.back.repository.BillRepository;
 import com.example.back.repository.ProductRepository;
 import com.example.back.repository.ReviewRepository;
 import com.example.back.repository.UserRepository;
-import jakarta.transaction.Transactional;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
 import java.util.List;
-import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -44,7 +49,7 @@ public class ReviewService {
         }
         return Boolean.FALSE;
     }
-    @Transactional
+    @jakarta.transaction.Transactional
     public ReviewDetail addReview(Integer id, ReviewDTO reviewDTO){
         User user =getCurrentUser();
         Product product =productRepository.findByProductId(id).orElseThrow(()-> new AppException(ErrorCodes.PRODUCT_NOT_FOUND));
@@ -54,5 +59,32 @@ public class ReviewService {
         reviewMapper.mapToReviewFromReviewDTO(reviewDTO,review);
         reviewRepository.save(review);
         return reviewMapper.toReviewDetail(review);
+    }
+    @Transactional(readOnly = true)
+    public List<ReviewDTOResponse> getAllReviews() {
+        return reviewRepository.findAllWithUserAndProduct().stream()
+                .map(this::convertToDTO)
+                .collect(Collectors.toList());
+    }
+
+    public ReviewDTOResponse updateReply(Integer reviewId, String reply) {
+        Review review = reviewRepository.findById(reviewId)
+                .orElseThrow(() -> new EntityNotFoundException("Review not found"));
+        review.setReply(reply);
+        reviewRepository.save(review);
+        return convertToDTO(review);
+    }
+
+    private ReviewDTOResponse convertToDTO(Review r) {
+        return ReviewDTOResponse.builder()
+                .reviewId(r.getReviewId())
+                .comment(r.getComment())
+                .rating(r.getRating())
+                .date(r.getTime())
+                .userName(r.getUser() != null ? r.getUser().getUserName() : "N/A")
+                .productId(r.getProduct() != null ? r.getProduct().getProductId().intValue() : null)
+                .productName(r.getProduct() != null ? r.getProduct().getName() : "N/A")
+                .reply(r.getReply())
+                .build();
     }
 }

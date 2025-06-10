@@ -2,18 +2,18 @@ package com.example.back.controllers;
 
 import com.example.back.dto.request.Review.ReviewDTO;
 import com.example.back.dto.response.APIResponse;
+import com.example.back.dto.response.Review.ReviewDTOResponse;
 import com.example.back.dto.response.Review.ReviewDetail;
-import com.example.back.entity.User;
-import com.example.back.enums.ErrorCodes;
-import com.example.back.exception.AppException;
-import com.example.back.repository.UserRepository;
 import com.example.back.service.ReviewService;
 import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("${api.key}/reviews")
@@ -34,5 +34,20 @@ public class ReviewController {
                 .result(reviewService.addReview(id,reviewDTO))
                 .build();
     }
+    @GetMapping("/admin")
+    public List<ReviewDTOResponse> getAllReviews() {
+        return reviewService.getAllReviews();
+    }
+
+    @PutMapping("/{id}/admin/reply")
+    public ResponseEntity<ReviewDTOResponse> replyToReview(
+            @PathVariable Integer id,
+            @RequestBody Map<String, String> payload
+    ) {
+        String reply = payload.get("reply");
+        ReviewDTOResponse updatedReview = reviewService.updateReply(id, reply);
+        return ResponseEntity.ok(updatedReview);
+    }
+
 
 }

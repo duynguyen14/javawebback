@@ -4,6 +4,7 @@ import com.example.back.Until.VNPUntils;
 import com.example.back.configuration.VNPCofig;
 import com.example.back.dto.request.Bill.CreateBillRequest;
 import com.example.back.dto.request.Bill.PaymentRequest;
+import com.example.back.dto.response.Bill.BillDTO;
 import com.example.back.dto.response.Bill.BillDetailResponse;
 import com.example.back.dto.response.Bill.BillResponse;
 import com.example.back.dto.response.Bill.PaymentResponse;
@@ -16,8 +17,9 @@ import com.example.back.exception.AppException;
 import com.example.back.mapper.AddressMapper;
 import com.example.back.mapper.BillMapper;
 import com.example.back.repository.*;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
-import jakarta.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
@@ -214,4 +216,38 @@ public class BillService {
                 .url(vnpCofig.getVnpPayUrl() + "?" + queryData)
                 .build();
     }
+    @Transactional(readOnly = true)
+    public List<BillDTO> getAllBills() {
+        List<Bill> bills = billRepository.getProductInBillByAdmin();
+        return bills.stream()
+                .map(BillMapper::toDTO)
+                .collect(Collectors.toList());
+    }
+    public List<BillDTO> getRevenue(){
+        List<Bill> bills = billRepository.getRevenue(BillStatus.SHIPPED.getLabel());
+        return bills.stream()
+                .map(BillMapper::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Transactional(readOnly = true)
+    public BillDTO getBillById(Integer id) {
+        Bill bill = billRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Bill not found"));
+
+        bill.getBillDetails().size();
+        if (bill.getUser() != null) bill.getUser().getUserName();
+        if (bill.getAddress() != null) bill.getAddress().getCity();
+
+        return BillMapper.toDTO(bill);
+    }
+
+    @Transactional
+    public void updateBillStatus(Integer id, String newStatus) {
+        Bill bill = billRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Bill not found"));
+        bill.setStatus(newStatus);
+        billRepository.save(bill);
+    }
+
 }

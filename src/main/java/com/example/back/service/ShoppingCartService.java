@@ -36,9 +36,9 @@ public class ShoppingCartService {
         String userName = SecurityContextHolder.getContext().getAuthentication().getName();
         User user =userRepository.findByUserName(userName).orElseThrow(()->new AppException(ErrorCodes.USER_NOT_FOUND));
         ShoppingCart shoppingCart =shoppingCartRepository.findByUser(user).orElseGet(()->
-                 shoppingCartRepository.save(ShoppingCart.builder()
-                            .user(user)
-                            .build())
+                shoppingCartRepository.save(ShoppingCart.builder()
+                        .user(user)
+                        .build())
         );
         System.out.println(cartRequest.getProductId());
         Product product =productRepository.findProductWithDetail(cartRequest.getProductId()).orElseThrow(()-> new AppException(ErrorCodes.PRODUCT_NOT_FOUND));
@@ -63,9 +63,9 @@ public class ShoppingCartService {
         shoppingCartDetailRepository.save(shoppingCartDetail);
         return CartResponse.builder()
                 .quantity(quantity)
-                .images(product.getImages().stream().map(Image::getImage).collect(Collectors.toSet()))
                 .price(shoppingCartDetail.getTotal())
                 .productSizeId(productSize.getId())
+                .images(product.getImages().stream().map(Image::getImage).collect(Collectors.toSet()))
                 .productName(product.getName())
                 .sizeName(size.getSizeName())
                 .build();

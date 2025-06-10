@@ -3,35 +3,33 @@ package com.example.back.service;
 import com.example.back.dto.request.User.PasswordUpdate;
 import com.example.back.dto.request.User.UserLoginDTO;
 import com.example.back.dto.request.User.UserRegister;
-import com.example.back.dto.response.User.ManagementUserResponse;
-import com.example.back.dto.response.User.UserLoginResponse;
-import com.example.back.dto.response.User.UserRegisterResponse;
-import com.example.back.dto.response.User.UserUpdateDTO;
-import com.example.back.mapper.UserMapper;
+import com.example.back.dto.response.User.*;
 import com.example.back.entity.Role;
 import com.example.back.entity.User;
 import com.example.back.enums.ErrorCodes;
 import com.example.back.exception.AppException;
+import com.example.back.mapper.UserMapper;
 import com.example.back.repository.RoleRepository;
 import com.example.back.repository.UserRepository;
 import com.example.back.security.JWTUntil;
 import com.example.back.security.user.UserPrincipal;
+import jakarta.transaction.Transactional;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE,makeFinal = true)
-@Slf4j
 public class UserService {
     UserRepository userRepository;
     UserMapper userMapper;
@@ -97,5 +95,43 @@ public class UserService {
     public List<ManagementUserResponse> managementUserResponses(){
         List<User> users =userRepository.findAll();
         return users.stream().map(userMapper::toManagementUserResponse).toList();
+    }
+    public List<UserDTO> getAllUsers() {
+        return userRepository.findAll().stream()
+                .map(userMapper::toUserDTO)
+                .collect(Collectors.toList());
+    }
+
+    public UserDTO getUserById(Integer id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new AppException(ErrorCodes.USER_NOT_FOUND));
+        return userMapper.toUserDTO(user);
+    }
+
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+    }
+
+    public void updateUserStatus(Integer userId, String newStatus) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new AppException(ErrorCodes.USER_NOT_FOUND));
+        user.setStatus(newStatus);
+        userRepository.save(user);
+    }
+
+    @Transactional
+    public User updateUserRoles(Integer userId, Set<Integer> roleIds) {
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new AppException(ErrorCodes.USER_NOT_FOUND));
+
+        Set<Role> roles = new HashSet<>(roleRepository.findAllById(roleIds));
+
+        if (roles.isEmpty()) {
+            throw new AppException(ErrorCodes.ROLE_NOT_FOUND);
+        }
+
+        user.setRoles(roles);
+        return userRepository.save(user);
     }
 }

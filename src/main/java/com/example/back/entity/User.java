@@ -3,6 +3,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
+import org.hibernate.annotations.LazyToOne;
+import org.hibernate.annotations.LazyToOneOption;
 
 import java.time.LocalDate;
 import java.util.*;
@@ -60,6 +62,7 @@ public class User {
     Set<Review> reviews;
 
     @OneToOne(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+//    @LazyToOne(LazyToOneOption.PROXY)
     ShoppingCart shoppingCart;
 
     @JsonIgnore
