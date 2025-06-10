@@ -63,6 +63,7 @@ public class ShoppingCartService {
         shoppingCartDetailRepository.save(shoppingCartDetail);
         return CartResponse.builder()
                 .quantity(quantity)
+                .images(product.getImages().stream().map(Image::getImage).collect(Collectors.toSet()))
                 .price(shoppingCartDetail.getTotal())
                 .productSizeId(productSize.getId())
                 .productName(product.getName())
