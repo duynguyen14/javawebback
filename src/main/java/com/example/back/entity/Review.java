@@ -36,4 +36,7 @@ public class Review {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     User user;
+
+    @Column(name = "Reply")
+    String reply;
 }

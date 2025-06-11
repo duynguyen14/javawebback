@@ -35,8 +35,15 @@ public class ProductController {
 
     @GetMapping("product/{id}")
     public APIResponse<ProductDetail> getProductDetail(@PathVariable Integer id){
+        System.out.println("productId "+id);
         return APIResponse.<ProductDetail>builder()
                 .result(productService.getProductDetail(id))
+                .build();
+    }
+    @GetMapping("product/{id}/related")
+    public APIResponse<List<ProductHome>> getRelatedProduct(@PathVariable Integer id){
+        return APIResponse.<List<ProductHome>>builder()
+                .result(productService.getRelatedProduct(id))
                 .build();
     }
     @GetMapping("products")

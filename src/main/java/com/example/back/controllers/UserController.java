@@ -1,30 +1,22 @@
 package com.example.back.controllers;
 
-
+import com.example.back.dto.request.User.PasswordUpdate;
 import com.example.back.dto.request.User.UserLoginDTO;
 import com.example.back.dto.request.User.UserRegister;
 import com.example.back.dto.response.APIResponse;
-import com.example.back.dto.response.User.ManagementUserResponse;
-import com.example.back.dto.response.User.UserLoginResponse;
-import com.example.back.dto.response.User.UserRegisterResponse;
+import com.example.back.dto.response.User.*;
 import com.example.back.entity.Role;
 import com.example.back.entity.User;
-import com.example.back.repository.UserRepository;
-import com.example.back.security.CurrentUser;
-import com.example.back.security.user.UserPrincipal;
+import com.example.back.mapper.UserMapper;
 import com.example.back.service.UserService;
 import jakarta.validation.Valid;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.oauth2.jwt.Jwt;
-import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.web.bind.annotation.*;
-//import org.springframework.security.core.GrantedAuthority;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -36,11 +28,7 @@ import java.util.stream.Collectors;
 //@CrossOrigin(origins = "*")
 public class UserController {
     UserService userService;
-
-    @Autowired
-    private UserRepository userRepository;
-
-
+    UserMapper userMapper;
     @PostMapping("/user/register")
     public APIResponse<UserRegisterResponse> createUser(@RequestBody @Valid UserRegister userRegister){
         return APIResponse.<UserRegisterResponse>builder()
@@ -53,39 +41,52 @@ public class UserController {
                 .result(userService.loginUser(userLoginDTO))
                 .build();
     }
-    @GetMapping("/user/me")
-//    @PreAuthorize("hasRole('USER')")
-    public User getCurrentUser(@CurrentUser UserPrincipal userPrincipal) {
-        return userRepository.findById(userPrincipal.getId())
-                .orElseThrow(() -> new RuntimeException("User not found"));
+    @GetMapping("user/profile")
+    public APIResponse<UserUpdateDTO> getUserProfile(){
+        return APIResponse.<UserUpdateDTO>builder()
+                .result(userService.getUserInformation())
+                .build();
+    }
+    @PatchMapping("user/profile")
+    public APIResponse<String> updateUser(@RequestBody @Valid UserUpdateDTO userUpdateDTO){
+        return APIResponse.<String>builder()
+                .result(userService.updateUser(userUpdateDTO))
+                .build();
+    }
+    @PostMapping("user/change-password")
+    public APIResponse<String> updatePassword(@RequestBody @Valid PasswordUpdate passwordUpdate){
+        return APIResponse.<String>builder()
+                .result(userService.updatePassword(passwordUpdate))
+                .build();
+    }
+    @GetMapping("/admin/getAll")
+    public APIResponse<List<UserDTO>> getAllUsers() {
+        return APIResponse.<List<UserDTO>>builder()
+                .result(userService.getAllUsers())
+                .build();
+    }
+    @GetMapping("admin/user/{id}")
+    public APIResponse<UserDTO> getUserById(@PathVariable Integer id) {
+        return APIResponse.<UserDTO>builder()
+                .result(userService.getUserById(id))
+                .build();
     }
 
-//    @GetMapping("user/myinfor")
-//    public APIResponse<User> getMyInfor(){
-//        Object userDetails = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-//        System.out.println("name "+SecurityContextHolder.getContext().getAuthentication().getName());
-//            if(userDetails instanceof Jwt jwt) {
-//                System.out.println("role "+jwt.getClaim("roles"));
-//                List<String> roleNames =jwt.getClaim("roles");
-//                User user = User.builder()
-//                        .userName(jwt.getSubject())
-//                        .roles(roleNames.stream().map(role->Role.builder().roleName(role).build()).collect(Collectors.toSet()))
-//                        .build();
-//                System.out.println("name " + user.getUserName());
-////                System.out.println("role: " + user.getRoles().stream().map(role -> role.getRoleName()));
-//                return APIResponse.<User>builder()
-//                        .result(user)
-//                        .build();
-//            }
-//            else {
-//                throw new RuntimeException();
-//            }
-//
-//    }
-    @GetMapping("user/list")
-    public APIResponse<List<ManagementUserResponse>> listUser(){
-        return APIResponse.<List<ManagementUserResponse>>builder()
-                .result(userService.managementUserResponses())
-                .build();
+    @PutMapping("/admin/user/{id}/status")
+    public ResponseEntity<String> updateStatus(
+            @PathVariable Integer id,
+            @RequestBody UserDTO request) {
+        userService.updateUserStatus(id, request.getStatus());
+        return ResponseEntity.ok("User status updated successfully");
+    }
+
+    @PutMapping("/admin/user/{id}/role")
+    public ResponseEntity<UserDTO> updateUserRoles(
+            @PathVariable Integer id,
+            @RequestBody UpdateRole request) {
+
+        User updatedUser = userService.updateUserRoles(id, request.getRoleIds());
+
+        return ResponseEntity.ok(userMapper.toUserDTO(updatedUser));
     }
 }

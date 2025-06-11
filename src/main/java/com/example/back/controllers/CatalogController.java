@@ -11,6 +11,9 @@ import com.example.back.service.CategoryService;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,7 +25,6 @@ import java.util.List;
 @FieldDefaults(level = AccessLevel.PRIVATE,makeFinal = true)
 public class CatalogController {
     CatalogService catalogService;
-
     @GetMapping("/getAll")
     public APIResponse<List<CatalogDetailDTO>> getAllCatalogs() {
         return APIResponse.<List<CatalogDetailDTO>>builder()
@@ -58,5 +60,37 @@ public class CatalogController {
                     .result(null)
                     .build();
     }
-}
 
+//    @GetMapping("/admin")
+//    public APIResponse<List<CatalogDTO>> getAll() {
+//        return new APIResponse<>(1000, "OK", catalogService.getAllCatalogs());
+//    }
+//
+//    @PostMapping("/admin")
+//    public APIResponse<CatalogDTO> create(@RequestBody CatalogDTO dto) {
+//        CatalogDTO created = catalogService.createCatalog(dto);
+//        return new APIResponse<>(1000, "Created", created);
+//    }
+//
+//    @PutMapping("/admin/{catalogId}")
+//    public APIResponse<CatalogDTO> update(@PathVariable Integer catalogId, @RequestBody CatalogDTO dto) {
+//        CatalogDTO updated = catalogService.updateCatalog(catalogId, dto);
+//        return new APIResponse<>(1000, "Updated", updated);
+//    }
+//
+//    @DeleteMapping("/admin/{catalogId}")
+//    public APIResponse<Void> delete(@PathVariable Integer catalogId) {
+//        catalogService.deleteCatalog(catalogId);
+//        return new APIResponse<>(1000, "Deleted", null);
+//    }
+////    @GetMapping("/paged")
+////    public APIResponse<Page<CatalogDTO>> getPagedCatalogs(
+////            @RequestParam(required = false) String search,
+////            @RequestParam(defaultValue = "0") int page,
+////            @RequestParam(defaultValue = "10") int size) {
+////
+////        Pageable pageable = PageRequest.of(page, size);
+////        Page<CatalogDTO> pagedResult = catalogService.getCatalogsPage(search, pageable);
+////        return new APIResponse<>(1000, "OK", pagedResult);
+////    }
+}

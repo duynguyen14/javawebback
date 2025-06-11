@@ -59,12 +59,13 @@ public class Product {
     Set<Image> images = new HashSet<>();
 
     @JsonIgnore
+    @OrderBy("time DESC")
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    List<Review> reviews = new ArrayList<>();
-
+    Set<Review> reviews = new HashSet<>();
     @JsonIgnore
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     Set<ProductSize> productSizes;
+
 
     @JsonIgnore
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

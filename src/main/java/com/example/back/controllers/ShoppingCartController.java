@@ -23,9 +23,9 @@ public class ShoppingCartController {
 
     @PostMapping("cart")
     public APIResponse<CartResponse> addCartResponseAPIResponse(@RequestBody @Valid CartRequest cartRequest){
-        System.out.println(cartRequest.getProductId());
-        System.out.println(cartRequest.getQuantity());
-        System.out.println("Size name: "+ cartRequest.getSizeName());
+        System.out.println("id: "+cartRequest.getProductId());
+        System.out.println("quantity: "+cartRequest.getQuantity());
+        System.out.println("size name :"+cartRequest.getSizeName());
         return APIResponse.<CartResponse>builder()
                 .result(shoppingCartService.addCartResponse(cartRequest))
                 .build();

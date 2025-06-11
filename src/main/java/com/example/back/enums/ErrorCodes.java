@@ -17,7 +17,7 @@ public enum ErrorCodes {
     EMAIL_INVALID(1005, "Email không đúng định dạng", HttpStatus.BAD_REQUEST),
     PASSWORD_IS_REQUIRED(1006, "Mật khẩu không được để trống", HttpStatus.BAD_REQUEST),
     PASSWORD_TOO_SHORT(1007, "password must be at least 6 characters", HttpStatus.BAD_REQUEST),
-
+    PASSWORD_INCORRECT(1008,"password incorrect", HttpStatus.BAD_REQUEST),
     ADDRESS_IS_DEFAULTED(1101, "address is defaulted", HttpStatus.BAD_REQUEST),
     ADDRESS_NOT_FOUND(1102,"address not found", HttpStatus.NOT_FOUND),
 
@@ -35,6 +35,12 @@ public enum ErrorCodes {
 
     SHOPPING_CART_NOT_FOUND(1401, "shopping cart not found", HttpStatus.NOT_FOUND),
     SHOPPING_CART_DETAIL_NOT_FOUND(1402, "shopping cart detail not found", HttpStatus.NOT_FOUND),
+
+
+    BILL_NOT_FOUND(1501,"bill not found", HttpStatus.NOT_FOUND),
+    INVALID_BILL_STATUS(1502,"invalid bill status", HttpStatus.BAD_REQUEST),
+
+    FAVORITE_PRODUCT_NOT_FOUND(1601,"favorite product not found", HttpStatus.NOT_FOUND)
     ;
 
     ErrorCodes(int code, String message, HttpStatus status) {

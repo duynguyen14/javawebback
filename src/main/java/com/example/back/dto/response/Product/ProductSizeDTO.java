@@ -10,6 +10,7 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class ProductSizeDTO {
+    Integer productSizeId;
     String sizeName;
     Integer quantity;
 

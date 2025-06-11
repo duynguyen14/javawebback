@@ -59,7 +59,6 @@ public class AddressService {
         List<Address> addressList = addressRepository.findByUser(user);
         return  addressList.stream().map(addressMapper::toAddressResponse).toList();
     }
-
     @Transactional
     public List<AddressDTO> updateAddress(AddressDTO addressDTO){
         String userName = SecurityContextHolder.getContext().getAuthentication().getName();

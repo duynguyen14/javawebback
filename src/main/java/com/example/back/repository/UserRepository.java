@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import java.util.Optional;
-
+import java.util.List;
 public interface UserRepository extends JpaRepository<User,Integer> {
 //    boolean existsByPhoneNumber(String phoneNumber);
 
@@ -17,6 +17,9 @@ public interface UserRepository extends JpaRepository<User,Integer> {
 //    Optional<User> findByName(String  name);
     Optional<User> findByEmail(String email);
     Optional<User> findByUserName(String userName);
+
     @Query("SELECT u FROM User u LEFT JOIN FETCH u.roles WHERE u.email = :email")
     Optional<User> findByEmailWithRoles(@Param("email") String email);
+    @Query("SELECT u FROM User u JOIN FETCH u.roles")
+    List<User> getAllUserWithRole();
 }

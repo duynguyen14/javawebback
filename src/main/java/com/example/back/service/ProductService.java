@@ -44,8 +44,15 @@ public class ProductService {
     }
 
     public ProductDetail getProductDetail(Integer id){
-        Product product =productRepository.findByProductId(id).orElseThrow(()->new AppException(ErrorCodes.PRODUCT_NOT_FOUND));
+        Product product =productRepository.findProductWithDetail(id).orElseThrow(()->new AppException(ErrorCodes.PRODUCT_NOT_FOUND));
         return productMapper.toProductDetail(product);
+    }
+    public List<ProductHome> getRelatedProduct(Integer id){
+        Product product =productRepository.findByProductId(id).orElseThrow(()-> new AppException(ErrorCodes.PRODUCT_NOT_FOUND));
+        Category category = product.getCategory();
+        List<Product> products =productRepository.findByCategory(category, PageRequest.of(0,10));
+        return products.stream().map(productMapper::toProductHomeDTO).toList();
+
     }
 
     public List<ProductHome> getAllProduct(int page){
@@ -123,4 +130,7 @@ public class ProductService {
     }
 
 
+//    public List<ProductHome> searchProduct(String name){
+//
+//    }
 }

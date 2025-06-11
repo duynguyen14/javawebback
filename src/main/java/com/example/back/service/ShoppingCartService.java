@@ -36,13 +36,13 @@ public class ShoppingCartService {
         String userName = SecurityContextHolder.getContext().getAuthentication().getName();
         User user =userRepository.findByUserName(userName).orElseThrow(()->new AppException(ErrorCodes.USER_NOT_FOUND));
         ShoppingCart shoppingCart =shoppingCartRepository.findByUser(user).orElseGet(()->
-                 shoppingCartRepository.save(ShoppingCart.builder()
-                            .user(user)
-                            .build())
+                shoppingCartRepository.save(ShoppingCart.builder()
+                        .user(user)
+                        .build())
         );
         System.out.println(cartRequest.getProductId());
-        Product product =productRepository.findByProductId(cartRequest.getProductId()).orElseThrow(()-> new AppException(ErrorCodes.PRODUCT_NOT_FOUND));
-        Size size =sizeRepository.findBySizeNameIgnoreCase(cartRequest.getSizeName()).orElseThrow(()-> new AppException(ErrorCodes.SIZE_NOT_FOUND));
+        Product product =productRepository.findProductWithDetail(cartRequest.getProductId()).orElseThrow(()-> new AppException(ErrorCodes.PRODUCT_NOT_FOUND));
+        Size size =sizeRepository.findBySizeName(cartRequest.getSizeName()).orElseThrow(()-> new AppException(ErrorCodes.SIZE_NOT_FOUND));
         ProductSize productSize =productSizeRepository.findBySizeAndProduct(size,product).orElseThrow(()-> new AppException(ErrorCodes.PRODUCT_NOT_FOUND));
         if(productSize.getQuantity()<cartRequest.getQuantity()){
             throw new AppException(ErrorCodes.PRODUCT_QUANTITY_UNAVAILABLE);
@@ -65,6 +65,7 @@ public class ShoppingCartService {
                 .quantity(quantity)
                 .price(shoppingCartDetail.getTotal())
                 .productSizeId(productSize.getId())
+                .images(product.getImages().stream().map(Image::getImage).collect(Collectors.toSet()))
                 .productName(product.getName())
                 .sizeName(size.getSizeName())
                 .build();

@@ -3,6 +3,7 @@ package com.example.back.dto.response.Bill;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Data
@@ -14,5 +15,5 @@ public class BillResponse {
     Integer id;
     LocalDateTime time;
     String status;
-    Double total;
+    BigDecimal total;
 }

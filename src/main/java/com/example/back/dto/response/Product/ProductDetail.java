@@ -23,7 +23,7 @@ public class ProductDetail {
     String categoryName;
     List<String> images;
     Set<ProductSizeDTO> productSizeDTOS;
-    List<ReviewDetail> reviews;
+    Set<ReviewDetail> reviews;
 
 
 

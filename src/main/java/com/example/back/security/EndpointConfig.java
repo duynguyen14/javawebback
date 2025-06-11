@@ -11,6 +11,7 @@ public class EndpointConfig {
             new SecuredEndpoint("/api/v1/user/demo", HttpMethod.GET),
             new SecuredEndpoint("/api/v1/products/home",HttpMethod.GET),
             new SecuredEndpoint("/api/v1/product/{id}",HttpMethod.GET),
+            new SecuredEndpoint("/api/v1/product/{id}/related",HttpMethod.GET),
             new SecuredEndpoint("/api/v1/user/list",HttpMethod.GET),
             new SecuredEndpoint("/api/v1/products",HttpMethod.GET),
             new SecuredEndpoint("/api/v1/category/{id}",HttpMethod.GET),
@@ -18,13 +19,14 @@ public class EndpointConfig {
             new SecuredEndpoint("/api/v1/address",HttpMethod.POST),
             new SecuredEndpoint("/api/v1/address/{id}",HttpMethod.DELETE),
             new SecuredEndpoint("/api/v1/address",HttpMethod.PATCH),
+            new SecuredEndpoint("/api/v1/address",HttpMethod.PATCH),
             new SecuredEndpoint("/api/v1/bill/getAll",HttpMethod.GET),
             // admin
             new SecuredEndpoint("/api/v1/bill/stats", HttpMethod.GET),
             new SecuredEndpoint("/api/v1/bill/recent", HttpMethod.GET),
             new SecuredEndpoint("/api/v1/products/tops", HttpMethod.GET),
             new SecuredEndpoint("/api/v1/reviews/recent", HttpMethod.GET),
-             new SecuredEndpoint("/api/v1/chart/revenue/daily", HttpMethod.GET),
+            new SecuredEndpoint("/api/v1/chart/revenue/daily", HttpMethod.GET),
             new SecuredEndpoint("/api/v1/chart/revenue/monthly", HttpMethod.GET),
             new SecuredEndpoint("/api/v1/chart/revenue/quarterly", HttpMethod.GET),
             new SecuredEndpoint("/api/v1/chart/catalog/revenue", HttpMethod.GET),
@@ -52,23 +54,66 @@ public class EndpointConfig {
             new SecuredEndpoint("/api/v1/revenue/export",HttpMethod.GET),
             new SecuredEndpoint("/api/v1/summary",HttpMethod.GET),
             // open ai
-             new SecuredEndpoint("api/v1/chatbot/training/retrain",HttpMethod.POST),
+            new SecuredEndpoint("api/v1/chatbot/training/retrain",HttpMethod.POST),
             new SecuredEndpoint("api/v1/openai/ask",HttpMethod.POST)
 
 
+    );
+    public static final List<SecuredEndpoint> AUTHENTICATED_ENDPOINTS=List.of(
+            new SecuredEndpoint("/api/v1/user/profile",HttpMethod.GET),
+            new SecuredEndpoint("/api/v1/user/change-password",HttpMethod.POST),
+            new SecuredEndpoint("/api/v1/user/change-password",HttpMethod.POST)
 
     );
+
 
     public static final List<SecuredEndpoint> USER_ENDPOINTS = List.of(
             new SecuredEndpoint("/api/v1/cart", HttpMethod.GET),
             new SecuredEndpoint("/api/v1/cart", HttpMethod.POST),
             new SecuredEndpoint("/api/v1/cart/{productSizeId}",HttpMethod.DELETE),
-            new SecuredEndpoint("/api/v1/cart/update",HttpMethod.PATCH)
-    );
+            new SecuredEndpoint("/api/v1/cart/update",HttpMethod.PATCH),
+//            new SecuredEndpoint("/api/v1/user/profile",HttpMethod.GET),
+//            new SecuredEndpoint("/api/v1/user/profile",HttpMethod.PATCH),
+//            new SecuredEndpoint("/api/v1/user/change-password",HttpMethod.POST),
+            new SecuredEndpoint("/api/v1/bill/getAll",HttpMethod.GET),
+            new SecuredEndpoint("/api/v1/bill/create",HttpMethod.POST),
+            new SecuredEndpoint("/api/v1/bill/detail/{id}",HttpMethod.GET),
+            new SecuredEndpoint("/api/v1/bill/detail/{id}",HttpMethod.PATCH),
+            new SecuredEndpoint("/api/v1/bill/create/payment",HttpMethod.POST),
+            new SecuredEndpoint("/api/v1/favorite/getAll",HttpMethod.GET),
+            new SecuredEndpoint("/api/v1/favorite/{id}",HttpMethod.POST),
+            new SecuredEndpoint("/api/v1/favorite/{id}",HttpMethod.DELETE),
+            new SecuredEndpoint("/api/v1/reviews/check/{id}",HttpMethod.GET),
+            new SecuredEndpoint("/api/v1/reviews/create/{id}",HttpMethod.POST)
+            );
 
     public static final List<SecuredEndpoint> ADMIN_ENDPOINTS = List.of(
-            new SecuredEndpoint("/api/v1/admin/demo", HttpMethod.GET)
+//            new SecuredEndpoint("/api/v1/catalog/admin", HttpMethod.GET),
+//            new SecuredEndpoint("/api/v1/catalog/admin", HttpMethod.POST),
+//            new SecuredEndpoint("/api/v1/catalog/admin/{catalogId}", HttpMethod.PUT),
+//            new SecuredEndpoint("/api/v1/catalog/admin/{catalogId}", HttpMethod.DELETE),
+//
+//
+//            new SecuredEndpoint("/api/v1/category/admin", HttpMethod.GET),
+//            new SecuredEndpoint("/api/v1/category/admin", HttpMethod.POST),
+////            new SecuredEndpoint("/api/v1/category/**/admin", HttpMethod.PUT),
+////            new SecuredEndpoint("/api/v1/category/**/admin", HttpMethod.DELETE),
 
+            new SecuredEndpoint("/api/v1/bill/admin", HttpMethod.GET),
+            new SecuredEndpoint("/api/v1/bill/admin/{id}", HttpMethod.GET),
+            new SecuredEndpoint("/api/v1/bill/admin", HttpMethod.POST),
+            new SecuredEndpoint("/api/v1/bills/admin/{id}/status", HttpMethod.PUT),
+            new SecuredEndpoint("/api/v1/bill/admin/revenue", HttpMethod.GET),
+
+            new SecuredEndpoint("/api/v1/reviews/admin", HttpMethod.GET),
+//            new SecuredEndpoint("/api/v1/reviews/admin", HttpMethod.POST),
+
+            new SecuredEndpoint("/api/v1/admin/getAll", HttpMethod.GET),
+            new SecuredEndpoint("/api/v1/admin/user/{id}", HttpMethod.GET),
+            new SecuredEndpoint("/api/v1/users/{id}/admin", HttpMethod.PUT),
+            new SecuredEndpoint("/api/v1/admin/user/{id}/status", HttpMethod.PUT),
+            new SecuredEndpoint("/api/v1/admin/user/{id}/role", HttpMethod.PUT),
+            new SecuredEndpoint("/api/v1/reviews/{reviewId}/admin/reply", HttpMethod.PUT)
 
 
     );

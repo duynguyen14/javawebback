@@ -25,9 +25,9 @@ public class ShoppingCart {
     String description;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "Id")
+    @JoinColumn(name = "user_id")
     User user;
 
-    @OneToMany(mappedBy = "shoppingCart", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-        List<ShoppingCartDetail> cartDetails = new ArrayList<>();
+    @OneToMany(mappedBy = "shoppingCart", cascade = CascadeType.ALL, fetch = FetchType.LAZY, orphanRemoval = true)
+    List<ShoppingCartDetail> cartDetails =new ArrayList<>();
 }

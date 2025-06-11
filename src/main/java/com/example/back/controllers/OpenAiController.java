@@ -167,7 +167,7 @@ public class OpenAiController {
             
             NHIỆM VỤ: Tư vấn sản phẩm một cách chuyên nghiệp, thân thiện và hữu ích.
             
-            NGUYÊN TẮC TƒỤ VẤN:
+            NGUYÊN TẮC TƯ VẤN:
             1. Luôn đưa ra lời khuyên dựa trên thông tin sản phẩm cụ thể
             2. So sánh các sản phẩm khi có nhiều lựa chọn
             3. Đề xuất sản phẩm phù hợp nhất với nhu cầu khách hàng
