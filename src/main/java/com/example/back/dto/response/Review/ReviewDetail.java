@@ -15,6 +15,5 @@ public class ReviewDetail {
     String comment;
     Integer rating;
     LocalDateTime date;
-
     String userName;
 }

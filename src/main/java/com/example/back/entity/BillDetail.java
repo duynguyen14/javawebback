@@ -15,7 +15,7 @@ import lombok.experimental.FieldDefaults;
 @FieldDefaults(level = AccessLevel.PRIVATE)
 public class BillDetail {
     @EmbeddedId
-    BillDetailId id;
+     BillDetailId id;
 
     @Column(name = "Quantity")
     Integer quantity;

@@ -8,5 +8,5 @@ import java.util.Optional;
 
 @Repository
 public interface SizeRepository extends JpaRepository<Size,Integer> {
-    Optional<Size> findBySizeName(String sizeName);
+    Optional<Size> findBySizeNameIgnoreCase(String sizeName);
 }

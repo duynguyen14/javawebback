@@ -9,8 +9,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "CATALOG")
-@Getter
-@Setter
+@Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -23,6 +22,10 @@ public class Catalog {
 
     @Column(name = "Name")
     String name;
+
+    @Column(name = "IsDeleted",nullable = false)
+    @Builder.Default
+    Boolean isDeleted = false;
 
     @OneToMany(mappedBy = "catalog", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     List<Category> categories = new ArrayList<>();

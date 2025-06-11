@@ -24,6 +24,11 @@ public class Category {
     @Column(name = "Name")
     private String name;
 
+    @Column(name = "IsDeleted",nullable = false)
+    @Builder.Default
+
+    Boolean isDeleted = false;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CatalogId")
     private Catalog catalog;

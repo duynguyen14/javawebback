@@ -25,7 +25,7 @@ public class ShoppingCartController {
     public APIResponse<CartResponse> addCartResponseAPIResponse(@RequestBody @Valid CartRequest cartRequest){
         System.out.println(cartRequest.getProductId());
         System.out.println(cartRequest.getQuantity());
-        System.out.println(cartRequest.getSizeName());
+        System.out.println("Size name: "+ cartRequest.getSizeName());
         return APIResponse.<CartResponse>builder()
                 .result(shoppingCartService.addCartResponse(cartRequest))
                 .build();

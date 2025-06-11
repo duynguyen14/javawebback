@@ -65,6 +65,13 @@ public class SecurityConfig {
                     // PUBLIC ENDPOINTS từ EndpointConfig
                     EndpointConfig.PUBLIC_ENDPOINTS.forEach(endpoint ->
                             auth.requestMatchers(endpoint.getHttpMethod(), endpoint.getUrl()).permitAll());
+                    // tạm test
+                        auth.requestMatchers("/products/add","/products/update/**").permitAll();
+                    auth.requestMatchers("/api/v1/catalog/create", "/api/v1/catalog/update/**", "/api/v1/catalog/delete/**").permitAll();
+                    auth.requestMatchers("/api/v1/category/create", "/api/v1/category/update/**", "/api/v1/category/delete/**").permitAll();
+                    auth.requestMatchers("/api/v1/chatbot/training/retrain").permitAll();
+                    auth.requestMatchers("/api/v1/openai/ask").permitAll();
+
 
                     // USER ENDPOINTS từ EndpointConfig
                     EndpointConfig.USER_ENDPOINTS.forEach(endpoint ->
@@ -73,7 +80,6 @@ public class SecurityConfig {
                     // ADMIN ENDPOINTS từ EndpointConfig
                     EndpointConfig.ADMIN_ENDPOINTS.forEach(endpoint ->
                             auth.requestMatchers(endpoint.getHttpMethod(), endpoint.getUrl()).hasRole("ADMIN"));
-
                     // Các static resources
                     auth.requestMatchers("/resources/**", "/static/**", "/public/**", "/images/**", "/css/**", "/js/**", "/favicon.ico").permitAll();
                     // OAuth2 endpoints
@@ -143,7 +149,6 @@ public class SecurityConfig {
     JwtAuthenticationConverter jwtAuthenticationConverter() {
         JwtGrantedAuthoritiesConverter jwtGrantedAuthoritiesConverter = new JwtGrantedAuthoritiesConverter();
         jwtGrantedAuthoritiesConverter.setAuthorityPrefix("ROLE_");
-
         JwtAuthenticationConverter jwtAuthenticationConverter = new JwtAuthenticationConverter();
         jwtAuthenticationConverter.setJwtGrantedAuthoritiesConverter(jwtGrantedAuthoritiesConverter);
 

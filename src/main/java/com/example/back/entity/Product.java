@@ -45,6 +45,10 @@ public class Product {
     @Column(name = "SoldCount")
     Integer soldCount;
 
+    @Column(name = "is_deleted")
+    @Builder.Default
+    Boolean isDeleted = false;
+
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CategoryId")
@@ -58,18 +62,9 @@ public class Product {
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     List<Review> reviews = new ArrayList<>();
 
-//    @JsonIgnore
-//    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//    List<BillDetail> billDetails = new ArrayList<>();
-//
-//    @JsonIgnore
-//    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//    List<ShoppingCartDetail> cartDetails = new ArrayList<>();
-
     @JsonIgnore
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     Set<ProductSize> productSizes;
-
 
     @JsonIgnore
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
