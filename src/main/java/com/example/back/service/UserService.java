@@ -77,7 +77,7 @@ public class UserService {
         String userName =SecurityContextHolder.getContext().getAuthentication().getName();
         User user = userRepository.findByUserName(userName).orElseThrow(()-> new AppException(ErrorCodes.USER_NOT_FOUND));
         userMapper.UpdateUser(user,userUpdateDTO);
-        passwordEncoder.encode(user.getPassword());
+//        passwordEncoder.encode(user.getPassword());
         userRepository.save(user);
         UserPrincipal userPrincipal =UserPrincipal.create(user);
         return jwtUntil.GenerateAccessToken(userPrincipal);
