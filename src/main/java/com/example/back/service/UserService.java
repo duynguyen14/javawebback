@@ -97,7 +97,7 @@ public class UserService {
         return users.stream().map(userMapper::toManagementUserResponse).toList();
     }
     public List<UserDTO> getAllUsers() {
-        return userRepository.findAll().stream()
+        return userRepository.getAllUserWithRole().stream()
                 .map(userMapper::toUserDTO)
                 .collect(Collectors.toList());
     }

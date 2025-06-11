@@ -19,7 +19,7 @@ public interface BillRepository extends JpaRepository<Bill,Integer> {
     @Query("SELECT b from Bill b JOIN FETCH b.user JOIN FETCH b.address JOIN FETCH b.billDetails bd JOIN FETCH bd.productSize ps JOIN FETCH ps.product p JOIN FETCH ps.size s")
     List<Bill> getProductInBillByAdmin();
 
-    @Query("SELECT b from Bill b where b.status = :status")
+    @Query("SELECT b from Bill b JOIN FETCH b.user JOIN FETCH b.address JOIN FETCH b.billDetails bd JOIN FETCH bd.productSize ps JOIN FETCH ps.product p JOIN FETCH ps.size s where b.status = :status")
     List<Bill> getRevenue(@Param("status") String status);
 
     Optional<Bill> findById(Integer id);
