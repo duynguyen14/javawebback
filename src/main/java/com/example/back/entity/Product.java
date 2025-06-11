@@ -45,6 +45,10 @@ public class Product {
     @Column(name = "SoldCount")
     Integer soldCount;
 
+    @Column(name = "is_deleted")
+    @Builder.Default
+    Boolean isDeleted = false;
+
     @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CategoryId")
@@ -58,7 +62,6 @@ public class Product {
     @OrderBy("time DESC")
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     Set<Review> reviews = new HashSet<>();
-
     @JsonIgnore
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     Set<ProductSize> productSizes;

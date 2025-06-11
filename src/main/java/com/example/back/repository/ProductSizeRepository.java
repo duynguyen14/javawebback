@@ -19,4 +19,5 @@ public interface ProductSizeRepository extends JpaRepository<ProductSize,Integer
     Optional<ProductSize> findByIdWithProduct(@Param("id") Integer id);
     @Query("SELECT ps FROM ProductSize ps JOIN FETCH ps.product JOIN FETCH ps.size WHERE ps.id = :id")
     Optional<ProductSize> findWithProductAndSizeById(@Param("id") Integer id);
+    void deleteByProduct(Product product);
 }

@@ -9,8 +9,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "SALE")
-@Getter
-@Setter
+@Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
@@ -32,7 +31,11 @@ public class Sale {
     @Column(name = "discount_percent")
     Integer discountPercent;
 
-    @OneToMany(mappedBy = "sale",cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @Column(name = "is_deleted")
+    @Builder.Default
+    Boolean isDeleted = false;
+
+    @OneToMany(mappedBy = "sale",cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     List<Product> products;
 
 }

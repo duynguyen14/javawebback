@@ -3,10 +3,7 @@ package com.example.back.controllers;
 import com.example.back.dto.request.Bill.CreateBillRequest;
 import com.example.back.dto.request.Bill.PaymentRequest;
 import com.example.back.dto.response.APIResponse;
-import com.example.back.dto.response.Bill.BillDTO;
-import com.example.back.dto.response.Bill.BillDetailResponse;
-import com.example.back.dto.response.Bill.BillResponse;
-import com.example.back.dto.response.Bill.PaymentResponse;
+import com.example.back.dto.response.Bill.*;
 import com.example.back.service.BillService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -21,17 +18,34 @@ import java.util.List;
 import java.util.Map;
 
 @RestController
+@RequestMapping("${api.key}/bill")
 @RequiredArgsConstructor
-@RequestMapping("${api.key}/bill/")
 @FieldDefaults(level = AccessLevel.PRIVATE,makeFinal = true)
 public class BillController {
     BillService billService;
-
     @GetMapping("getAll")
     public APIResponse<List<BillResponse>> getAllBillByUser(){
         return  APIResponse.<List<BillResponse>>builder()
                 .result(billService.getAllBillByUser())
                 .build();
+    }
+    @GetMapping("stats")
+    public RevenueAndTotalRespone getBillStats() {
+        return billService.getBillStats();
+    }
+    @GetMapping("recent")
+    public APIResponse<List<RecentBillDTO>> getMostRecentBills(@RequestParam(defaultValue = "5") int limit) {
+        try {
+            List<RecentBillDTO> recentBills = billService.getMostRecentBill(limit);
+            return APIResponse.<List<RecentBillDTO>>builder()
+                    .result(recentBills)
+                    .build();
+        } catch (RuntimeException e) {
+            return APIResponse.<List<RecentBillDTO>>builder()
+                    .code(404)
+                    .message(e.getMessage())
+                    .build();
+        }
     }
 
 
@@ -91,7 +105,6 @@ public class BillController {
                     .body(Map.of("code", 9999, "message", e.getClass().getSimpleName() + ": " + e.getMessage()));
         }
     }
-
     @PutMapping("admin/{id}/status")
     public ResponseEntity<?> updateBillStatus(@PathVariable Integer id, @RequestParam String status) {
         try {
@@ -106,5 +119,4 @@ public class BillController {
                     .body(Map.of("code", 9999, "message", e.getClass().getSimpleName() + ": " + e.getMessage()));
         }
     }
-
 }

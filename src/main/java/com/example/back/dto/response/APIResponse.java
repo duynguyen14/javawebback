@@ -15,4 +15,19 @@ public class APIResponse<T> {
     int code=1000;
     String message;
     T result;
+    public static <T> APIResponse<T> notFound() {
+        return APIResponse.<T>builder()
+                .code(404)
+                .message("Not Found")
+                .result(null)
+                .build();
+    }
+
+    public static <T> APIResponse<T> success(T result) {
+        return APIResponse.<T>builder()
+                .code(1000)
+                .message("Success")
+                .result(result)
+                .build();
+    }
 }

@@ -7,6 +7,10 @@ import com.example.back.dto.request.Bill.PaymentRequest;
 import com.example.back.dto.response.Bill.BillDTO;
 import com.example.back.dto.response.Bill.BillDetailResponse;
 import com.example.back.dto.response.Bill.BillResponse;
+import com.example.back.dto.response.Bill.RecentBillDTO;
+import com.example.back.dto.response.Bill.RevenueAndTotalRespone;
+import com.example.back.entity.Bill;
+import com.example.back.entity.User;
 import com.example.back.dto.response.Bill.PaymentResponse;
 import com.example.back.dto.response.Cart.CartResponse;
 import com.example.back.dto.response.Product.ProductSizeDTO;
@@ -23,10 +27,14 @@ import org.springframework.transaction.annotation.Transactional;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.List;
+import java.util.stream.Collectors;
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.text.SimpleDateFormat;
@@ -40,9 +48,11 @@ import java.util.stream.Collectors;
 public class BillService {
     BillDetailRepository billDetailRepository;
     BillRepository billRepository;
+
     UserRepository userRepository;
     ProductSizeRepository productSizeRepository;
     BillMapper billMapper;
+
     ShoppingCartRepository shoppingCartRepository;
     AddressRepository addressRepository;
     AddressMapper addressMapper;
@@ -54,11 +64,47 @@ public class BillService {
         return userRepository.findByUserName(username)
                 .orElseThrow(() -> new AppException(ErrorCodes.USER_NOT_FOUND));
     }
+
+    public List<BillResponse> getAllBillByUser1(){
+        String userName = SecurityContextHolder.getContext().getAuthentication().getName();
+        User user =userRepository.findByUserName(userName).orElseThrow(()-> new AppException(ErrorCodes.USER_NOT_FOUND));
+        List<Bill> bills=billRepository.getByUser(user);
+        return bills.stream().map(billMapper::toBillResponse).toList();
+    }
     public List<BillResponse> getAllBillByUser(){
         User user = getCurrentUser();
         List<Bill> bills=billRepository.findByUser(user);
         return bills.stream().map(billMapper::toBillResponse).toList();
     }
+    public RevenueAndTotalRespone getBillStats() {
+        Long totalOrders = billRepository.countCompletedBills();
+        BigDecimal totalRevenue = billDetailRepository.sumTotalRevenueFromCompletedBills();
+
+        return RevenueAndTotalRespone.builder()
+                .totalOrder(totalOrders)
+                .totalRevenue(totalRevenue)
+                .build();
+    }
+    //
+
+    public List<RecentBillDTO> getMostRecentBill(int limit) {
+        Pageable pageable = PageRequest.of(0, limit);
+        List<Bill> recentBills = billRepository.findMostRecentBill(pageable);
+        if (recentBills.isEmpty()) {
+            throw new RuntimeException("Không tìm thấy đơn hàng nào");
+        }
+
+        return recentBills.stream()
+                .map(bill -> RecentBillDTO.builder()
+                        .billId(bill.getBillId())
+                        .customerName(bill.getUser().getUserName())
+                        .orderDate(bill.getTime())
+                        .orderValue(bill.getTotal())
+                        .orderStatus(bill.getStatus())
+                        .build())
+                .collect(Collectors.toList());
+    }
+
     @Transactional
     public BillResponse createBill(CreateBillRequest billRequest){
         User user =getCurrentUser();
