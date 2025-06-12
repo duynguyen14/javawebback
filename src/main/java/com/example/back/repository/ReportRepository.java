@@ -32,7 +32,7 @@ public interface ReportRepository extends JpaRepository<Product, Integer> {
         LEFT JOIN catalog cat ON c.catalog_id = cat.catalog_id
         LEFT JOIN product_size ps ON ps.product_id = p.product_id
         LEFT JOIN billdetail bd ON bd.product_size_id = ps.product_size_id
-        LEFT JOIN bill b ON bd.bill_id = b.bill_id AND b.status = 'COMPLETED'
+        LEFT JOIN bill b ON bd.bill_id = b.bill_id AND b.status = 'đã giao'
         GROUP BY
             p.product_id,
             p.name,
@@ -59,7 +59,7 @@ public interface ReportRepository extends JpaRepository<Product, Integer> {
                 JOIN billdetail bd2 ON bd2.product_size_id = ps2.product_size_id
                 JOIN bill b2 ON bd2.bill_id = b2.bill_id
                 WHERE DATE(b2.time) = DATE(b.time)
-                  AND b2.status = 'COMPLETED'
+                  AND b2.status = 'đã giao'
                 GROUP BY p2.product_id
                 ORDER BY SUM(bd2.quantity) DESC
                 LIMIT 1
@@ -72,7 +72,7 @@ public interface ReportRepository extends JpaRepository<Product, Integer> {
                 JOIN billdetail bd3 ON bd3.product_size_id = ps3.product_size_id
                 JOIN bill b3 ON bd3.bill_id = b3.bill_id
                 WHERE DATE(b3.time) = DATE(b.time)
-                  AND b3.status = 'COMPLETED'
+                  AND b3.status = 'đã giao'
                 GROUP BY c2.category_id
                 ORDER BY SUM(bd3.quantity) DESC
                 LIMIT 1
@@ -81,7 +81,7 @@ public interface ReportRepository extends JpaRepository<Product, Integer> {
         JOIN billdetail bd ON bd.bill_id = b.bill_id
         JOIN product_size ps ON ps.product_size_id = bd.product_size_id
         JOIN product p ON ps.product_id = p.product_id
-        WHERE b.status = 'COMPLETED'
+        WHERE b.status = 'đã giao'
           AND b.time >= :startDate
           AND b.time <= :endDate
         GROUP BY DATE(b.time)
@@ -105,7 +105,7 @@ public interface ReportRepository extends JpaRepository<Product, Integer> {
         JOIN billdetail bd ON bd.product_size_id = ps.product_size_id
         JOIN bill b ON bd.bill_id = b.bill_id
         JOIN category c ON p.category_id = c.category_id
-        WHERE b.status = 'COMPLETED'
+        WHERE b.status = 'đã giao'
           AND b.time >= :startDate
           AND b.time <= :endDate
         GROUP BY p.product_id, p.name, c.name, p.price

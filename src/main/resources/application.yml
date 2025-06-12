@@ -27,8 +27,8 @@ spring:
   port: 8080
   datasource:
     url: jdbc:mysql://localhost:3306/foxystore?useSSL=false&serverTimezone=UTC
-    username: root
-    password: ""
+    username: "duy"
+    password: "Duy14112004@"
     driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
