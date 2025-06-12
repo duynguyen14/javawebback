@@ -66,11 +66,13 @@ public class SecurityConfig {
                     EndpointConfig.PUBLIC_ENDPOINTS.forEach(endpoint ->
                             auth.requestMatchers(endpoint.getHttpMethod(), endpoint.getUrl()).permitAll());
                     // tạm test
-                        auth.requestMatchers("/products/add","/products/update/**").permitAll();
-                    auth.requestMatchers("/api/v1/catalog/create", "/api/v1/catalog/update/**", "/api/v1/catalog/delete/**").permitAll();
-                    auth.requestMatchers("/api/v1/category/create", "/api/v1/category/update/**", "/api/v1/category/delete/**").permitAll();
-                    auth.requestMatchers("/api/v1/chatbot/training/retrain").permitAll();
-                    auth.requestMatchers("/api/v1/openai/ask").permitAll();
+//                        auth.requestMatchers("/products/add","/products/update/**").permitAll();
+//                    auth.requestMatchers("/api/v1/catalog/create", "/api/v1/catalog/update/**", "/api/v1/catalog/delete/**").permitAll();
+//                    auth.requestMatchers("/api/v1/category/create", "/api/v1/category/update/**", "/api/v1/category/delete/**").permitAll();
+//                    auth.requestMatchers("/api/v1/chatbot/training/retrain").permitAll();
+//                    auth.requestMatchers("/api/v1/openai/ask").permitAll();
+//                    auth.requestMatchers("/api/v1/products").permitAll();
+//                    auth.requestMatchers("/api/v1/products/{productId}").permitAll();
 
 
                     // USER ENDPOINTS từ EndpointConfig

@@ -14,9 +14,10 @@ import java.util.Optional;
 
 public interface ProductRepository extends JpaRepository<Product,Integer> {
 
-    @EntityGraph(attributePaths = {"images", "productSizes","productSizes.size",  "sale"})
-    @Query("SELECT distinct p FROM Product p ORDER BY p.createdDate DESC")
+    @EntityGraph(attributePaths = {"images", "productSizes", "productSizes.size", "sale"})
+    @Query("SELECT DISTINCT p FROM Product p WHERE p.isDeleted = false ORDER BY p.createdDate DESC")
     List<Product> findProductNew(Pageable pageable);
+
 
     @EntityGraph(attributePaths = {"images", "productSizes","productSizes.size", "sale"})
     @Query("SELECT distinct p FROM Product p  JOIN p.sale s WHERE s.id=1")

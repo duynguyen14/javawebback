@@ -55,7 +55,7 @@ public class Product {
     Category category;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL,orphanRemoval = true,fetch = FetchType.LAZY)
     Set<Image> images = new HashSet<>();
 
     @JsonIgnore

@@ -30,4 +30,10 @@ public class APIResponse<T> {
                 .result(result)
                 .build();
     }
+    public static <T> APIResponse<T> error(String message) {
+        return APIResponse.<T>builder()
+                .code(9999)
+                .message(message)
+                .build();
+    }
 }
