@@ -22,7 +22,7 @@ public interface BillRepository extends JpaRepository<Bill,Integer> {
 
     List<Bill> getByUser(User user);
     //Số đơn hàng
-    @Query("SELECT COUNT(b) FROM Bill b WHERE b.status = 'COMPLETED'")
+    @Query("SELECT COUNT(b) FROM Bill b WHERE b.status = 'đã giao'")
     Long countCompletedBills();
     //
     @Query("SELECT b FROM Bill b JOIN FETCH b.user ORDER BY b.time DESC")

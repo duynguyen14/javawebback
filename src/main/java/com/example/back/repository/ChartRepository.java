@@ -23,7 +23,7 @@ public interface ChartRepository extends JpaRepository<Bill,Integer> {
     LEFT JOIN product p ON ps.product_id = p.product_id
     WHERE b.time >= :startDate 
       AND b.time <= :endDate
-      AND b.status = 'COMPLETED'
+      AND b.status = 'đã giao'
     GROUP BY DATE(b.time)
     ORDER BY DATE(b.time)
     """, nativeQuery = true)
@@ -41,7 +41,7 @@ public interface ChartRepository extends JpaRepository<Bill,Integer> {
     LEFT JOIN product_size ps ON bd.product_size_id = ps.product_size_id
     LEFT JOIN product p ON ps.product_id = p.product_id
     WHERE b.time >= :startDate AND b.time <= :endDate
-     AND b.status = 'COMPLETED'
+     AND b.status = 'đã giao'
     GROUP BY DATE_FORMAT(b.time, '%Y-%m')
     ORDER BY DATE_FORMAT(b.time, '%Y-%m')
     """, nativeQuery = true)
@@ -60,7 +60,7 @@ public interface ChartRepository extends JpaRepository<Bill,Integer> {
     LEFT JOIN product_size ps ON bd.product_size_id = ps.product_size_id
     LEFT JOIN product p ON ps.product_id = p.product_id
     WHERE b.time >= :startDate AND b.time <= :endDate
-     AND b.status = 'COMPLETED'
+     AND b.status = 'đã giao'
     GROUP BY YEAR(b.time), QUARTER(b.time)
     ORDER BY YEAR(b.time), QUARTER(b.time)
     """, nativeQuery = true)
@@ -88,7 +88,7 @@ public interface ChartRepository extends JpaRepository<Bill,Integer> {
             LEFT JOIN product_size ps ON p.product_id = ps.product_id
             LEFT JOIN billdetail bd ON ps.product_size_id = bd.product_size_id
             LEFT JOIN bill b ON bd.bill_id = b.bill_id
-            WHERE b.status = 'COMPLETED' OR b.status IS NULL
+            WHERE b.status = 'đã giao' OR b.status IS NULL
             GROUP BY cat.catalog_id, cat.name
             ORDER BY totalRevenue DESC
     """, nativeQuery = true)

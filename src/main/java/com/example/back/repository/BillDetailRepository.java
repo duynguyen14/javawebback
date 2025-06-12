@@ -11,6 +11,6 @@ public interface BillDetailRepository extends JpaRepository<BillDetail,Integer> 
             "FROM BillDetail bd " +
             "JOIN bd.productSize ps " +
             "JOIN bd.bill b " +
-            "WHERE b.status = 'COMPLETED'")
+            "WHERE b.status = 'đã giao'")
     BigDecimal sumTotalRevenueFromCompletedBills();
 }
